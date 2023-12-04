@@ -7,17 +7,47 @@
     tools:context=".ui.register.RegisterActivity">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/iv_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/logo_company"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_name" />
 
+
+    <TextView
+        android:id="@+id/tv_welcome"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/inter_extrabold"
+        android:text="@string/welcome_text"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_logo" />
+
+    <TextView
+        android:id="@+id/tv_tagline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/poppins_medium"
+        android:text="@string/tagline"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_6"
+        app:layout_constraintStart_toStartOf="@+id/tv_welcome"
+        app:layout_constraintTop_toBottomOf="@+id/tv_welcome" />
+
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
+        android:id="@+id/til_email"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -25,24 +55,21 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2">
+        app:layout_constraintTop_toBottomOf="@+id/tv_tagline">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Email"
-            android:inputType="text|textEmailAddress"
-            android:maxLines="1"
+            android:hint="@string/email"
             android:textColor="@color/black"
-            android:textColorHighlight="@color/primary"
-            android:textColorHint="@color/black"
-            android:textSize="16sp"
-            android:typeface="normal" />
+            android:inputType="textEmailAddress"
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout3"
+        android:id="@+id/til_username"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -50,45 +77,40 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/til_email">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Username"
-            android:textSize="16sp"
+            android:hint="@string/username"
             android:inputType="text"
             android:maxLines="1"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/primary"
-            android:textColorHint="@color/black"
-            android:typeface="normal" />
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout4"
+        android:id="@+id/til_birth_place"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/til_username">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_birth_place"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Tempat"
-            android:textSize="16sp"
+            android:hint="@string/birth_place"
             android:inputType="text"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textColorHighlight="@color/primary"
-            android:textColorHint="@color/black"
-            android:typeface="normal" />
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -100,22 +122,17 @@
         app:endIconDrawable="@drawable/baseline_date_range_24"
         app:endIconMode="custom"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textInputLayout4"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout4">
+        app:layout_constraintStart_toEndOf="@+id/til_birth_place"
+        app:layout_constraintTop_toTopOf="@+id/til_birth_place">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Tanggal lahir"
-            android:textSize="16sp"
+            android:hint="@string/birth_date"
             android:inputType="text|textEmailAddress"
-            android:maxLines="1"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/primary"
-            android:textColorHint="@color/black"
-            android:typeface="normal" />
+            android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -127,24 +144,21 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout4"
+        app:layout_constraintTop_toBottomOf="@+id/til_birth_place"
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:textSize="16sp"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Kata Sandi"
+            android:hint="@string/password"
             android:inputType="text|textPassword"
             android:maxLines="1"
             android:textColor="@color/black"
-            android:textColorHighlight="@color/primary"
-            android:textColorHint="@color/black"
-            android:typeface="normal" />
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
-
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/passwordInputLayout2"
@@ -159,68 +173,26 @@
         app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/et_repassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:textSize="16sp"
             android:fontFamily="@font/poppins_medium"
-            android:hint="Re-type Kata Sandi"
+            android:hint="@string/re_password"
             android:inputType="text|textPassword"
             android:maxLines="1"
-            android:textColor="@color/black"
-            android:textColorHighlight="@color/primary"
-            android:textColorHint="@color/black"
-            android:typeface="normal" />
+            android:textSize="16sp" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        android:fontFamily="@font/inter_extrabold"
-        android:text="Selamat datang di Riri!"
-        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Berikan Kemudahan di Setiap Permasalahan"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_6"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:fontFamily="@font/poppins_medium"
-        android:text="Lupa kata sandi?"
-        android:textColor="@color/black"
-        android:textSize="@dimen/text_6"
-        app:layout_constraintEnd_toEndOf="@+id/passwordInputLayout"
-        app:layout_constraintTop_toTopOf="@+id/materialButton" />
-
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton"
+        android:id="@+id/btn_register"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Daftar"
+        android:text="@string/register"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:cornerRadius="10dp"
@@ -234,8 +206,8 @@
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toStartOf="@id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/materialButton"
-        app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+        app:layout_constraintStart_toStartOf="@+id/btn_register"
+        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
     <TextView
         android:id="@+id/textView4"
@@ -245,31 +217,31 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:fontFamily="@font/poppins_medium"
-        android:text="atau"
+        android:text="@string/or"
         android:textColor="@color/gray"
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/materialDivider2"
         app:layout_constraintStart_toEndOf="@+id/materialDivider"
-        app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider2"
         android:layout_width="150dp"
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/materialButton"
+        app:layout_constraintEnd_toEndOf="@+id/btn_register"
         app:layout_constraintStart_toEndOf="@id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/materialButton" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/materialButton2"
+        android:id="@+id/btn_register_google"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_semibold"
-        android:text="Daftar dengan Google"
+        android:text="@string/register_google"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:cornerRadius="10dp"

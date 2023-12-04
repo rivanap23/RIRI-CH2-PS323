@@ -1,11 +1,12 @@
-package com.riridev.ririapp
+package com.riridev.ririapp.ui.report
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.riridev.ririapp.R
 
-class MainActivity : AppCompatActivity() {
+class ReportActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.login_layout)
+        setContentView(R.layout.activity_report)
     }
 }

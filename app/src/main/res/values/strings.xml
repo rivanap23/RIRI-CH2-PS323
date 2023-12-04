@@ -1,3 +1,31 @@
 <resources>
     <string name="app_name">Riri</string>
+    <string name="welcome_text">Selamat datang di Riri!</string>
+    <string name="tagline">Berikan Kemudahan di Setiap Permasalahan</string>
+    <string name="email">Email</string>
+    <string name="username">Username</string>
+    <string name="birth_place">Tempat</string>
+    <string name="password">Kata Sandi</string>
+    <string name="re_password">Re-type Kata Sandi</string>
+    <string name="register">Daftar</string>
+    <string name="or">atau</string>
+    <string name="register_google">Daftar dengan Google</string>
+    <string name="birth_date">Tanggal lahir</string>
+    <string name="logo_company">logo company</string>
+    <string name="login_google">Masuk dengan Google</string>
+    <string name="username_email">Username/Email</string>
+    <string name="forgot_password">Lupa kata sandi?</string>
+    <string name="login">Masuk</string>
+    <string name="home">Beranda</string>
+    <string name="chat">Pesan</string>
+    <string name="notification">Notifikasi</string>
+    <string name="profile">Profil</string>
+    <string name="report">Laporan</string>
+    <string name="news">Berita</string>
+    <string name="rating">Ulasan</string>
+    <string name="instansi">Instansi</string>
+    <string name="forum">Forum Diskusi</string>
+    <string name="history">Riwayat Laporan</string>
+    <string name="statistic_report">Statistik Laporan</string>
+    <string name="emergency_contact">Kontak Darurat</string>
 </resources>

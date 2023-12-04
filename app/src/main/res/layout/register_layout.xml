@@ -7,7 +7,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="100dp"
+        android:paddingBottom="60dp"
         android:clipToPadding="false">
 
         <!-- Scrollable content -->

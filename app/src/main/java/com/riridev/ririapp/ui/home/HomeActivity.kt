@@ -1,12 +1,15 @@
 package com.riridev.ririapp.ui.home
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.riridev.ririapp.R
+import androidx.appcompat.app.AppCompatActivity
+import com.riridev.ririapp.databinding.HomeLayoutBinding
 
 class HomeActivity : AppCompatActivity() {
+    private lateinit var binding: HomeLayoutBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
+        binding = HomeLayoutBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
+
 }

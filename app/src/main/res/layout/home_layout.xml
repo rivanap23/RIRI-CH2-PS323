@@ -12,7 +12,9 @@
         android:clipToPadding="false">
 
         <!-- Scrollable content -->
-        <include layout="@layout/activity_home"/>
+        <include
+            android:id="@+id/home_content"
+            layout="@layout/activity_home"/>
     </androidx.core.widget.NestedScrollView>
 
     
