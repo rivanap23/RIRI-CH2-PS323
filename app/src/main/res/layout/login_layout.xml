@@ -11,7 +11,7 @@
         android:clipToPadding="false">
 
         <!-- Scrollable content -->
-        <include layout="@layout/activity_login"/>
+        <include android:id="@+id/activity_login" layout="@layout/activity_login"/>
     </androidx.core.widget.NestedScrollView>
 
     <LinearLayout

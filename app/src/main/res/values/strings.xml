@@ -40,4 +40,14 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="nama_lengkap">Nama Lengkap</string>
+    <string name="email_gmail_com">email@gmail.com</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="edit_password">Edit Kata Sandi</string>
+    <string name="ganti_bahasa">Ganti Bahasa</string>
+    <string name="rating_kami">Rating Kami</string>
+    <string name="tentang_kami">Tentang Kami</string>
+    <string name="syarat_dan_ketentuan">Syarat dan Ketentuan</string>
+    <string name="keluar">Keluar</string>
+    <string name="profile_picture">profile picture</string>
 </resources>

@@ -28,7 +28,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.riridev.ririapp.ui.custom.EditTextField
+            android:id="@+id/et_email_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -102,8 +103,8 @@
         app:layout_constraintEnd_toEndOf="@+id/passwordInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btn_register"
+    <com.riridev.ririapp.ui.custom.CustomButton
+        android:id="@+id/btn_login"
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
@@ -111,7 +112,7 @@
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/login"
-        android:textColor="@color/white"
+        android:enabled="false"
         android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -124,8 +125,8 @@
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toStartOf="@id/textView4"
-        app:layout_constraintStart_toStartOf="@+id/btn_register"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
+        app:layout_constraintStart_toStartOf="@+id/btn_login"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <TextView
         android:id="@+id/textView4"
@@ -140,16 +141,16 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toStartOf="@+id/materialDivider2"
         app:layout_constraintStart_toEndOf="@+id/materialDivider"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <com.google.android.material.divider.MaterialDivider
         android:id="@+id/materialDivider2"
         android:layout_width="150dp"
         android:layout_height="1dp"
         android:layout_marginTop="20dp"
-        app:layout_constraintEnd_toEndOf="@+id/btn_register"
+        app:layout_constraintEnd_toEndOf="@+id/btn_login"
         app:layout_constraintStart_toEndOf="@id/textView4"
-        app:layout_constraintTop_toBottomOf="@+id/btn_register" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_login_google"
@@ -159,9 +160,8 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_semibold"
-        android:backgroundTint="@color/primary_variant"
         android:text="@string/login_google"
-        android:textColor="@color/gray"
+        android:enabled="false"
         android:textSize="16sp"
         app:cornerRadius="10dp"
         app:icon="@drawable/googleg_standard_color_18"
