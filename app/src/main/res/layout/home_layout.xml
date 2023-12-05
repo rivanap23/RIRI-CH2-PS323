@@ -19,10 +19,12 @@
 
     
     <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:menu="@menu/bottom_navigation_menu"
-        style="@style/Widget.App.BottomNavigationView"/>
+        style="@style/Widget.App.BottomNavigationView"
+        app:labelVisibilityMode="labeled"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

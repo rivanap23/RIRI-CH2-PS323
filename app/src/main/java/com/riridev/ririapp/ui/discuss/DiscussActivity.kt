@@ -1,12 +1,12 @@
-package com.riridev.ririapp.ui.report
+package com.riridev.ririapp.ui.discuss
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.riridev.ririapp.R
 
-class ReportActivity : AppCompatActivity() {
+class DiscussActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.report_layout)
+        setContentView(R.layout.activity_discuss)
     }
 }

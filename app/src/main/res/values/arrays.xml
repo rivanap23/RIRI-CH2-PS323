@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="instansi_items">
+        <item>BPBD</item>
+        <item>Pemadam Kebakaran</item>
+        <item>Polres</item>
+        <item>Dinas Kesehatan</item>
+        <item>Ambulans</item>
+    </string-array>
+    <string-array name="kategori_items">
+        <item>Kebakaran</item>
+        <item>Kesehatan</item>
+        <item>Penyelamatan</item>
+        <item>Bencana Alam</item>
+        <item>Kecelakaan Lalu Lintas</item>
+        <item>Kriminalitas</item>
+    </string-array>
+</resources>

@@ -15,4 +15,32 @@
             android:id="@+id/layout_regis" layout="@layout/activity_register"/>
     </androidx.core.widget.NestedScrollView>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@color/primary_variant">
+
+        <TextView
+            android:id="@+id/tv_ask_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/ask_account_regis"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_6" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/masuk_di_sini"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_6" />
+
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

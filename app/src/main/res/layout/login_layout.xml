@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:layout_height="match_parent">
 
     <!-- Note: A RecyclerView can also be used -->
     <androidx.core.widget.NestedScrollView
@@ -15,10 +14,32 @@
         <include layout="@layout/activity_login"/>
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.bottomappbar.BottomAppBar
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:title="@string/app_name"/>
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:background="@color/primary_variant">
 
+        <TextView
+            android:id="@+id/tv_ask_register"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="5dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/ask_account_login"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_6" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="5dp"
+            android:fontFamily="@font/poppins_semibold"
+            android:text="@string/daftar_disini"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_6" />
+
+    </LinearLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
