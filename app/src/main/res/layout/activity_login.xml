@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.login.LoginActivity">
+    android:layout_height="match_parent">
 
     <ImageView
         android:id="@+id/iv_logo_login"
@@ -35,6 +33,7 @@
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/username_email"
+            android:textColor="@color/black"
             android:inputType="text|textEmailAddress"
             android:maxLines="1"
             android:typeface="normal" />
@@ -59,6 +58,7 @@
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/password"
+            android:textColor="@color/black"
             android:inputType="textPassword"
             android:maxLines="1" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -152,7 +152,7 @@
         app:layout_constraintStart_toEndOf="@id/textView4"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
-    <com.google.android.material.button.MaterialButton
+    <com.riridev.ririapp.ui.custom.CustomButton
         android:id="@+id/btn_login_google"
         android:layout_width="0dp"
         android:layout_height="55dp"
@@ -164,7 +164,7 @@
         android:enabled="false"
         android:textSize="16sp"
         app:cornerRadius="10dp"
-        app:icon="@drawable/googleg_standard_color_18"
+        app:icon="@drawable/logo_google"
         app:iconGravity="textStart"
         app:iconTint="@null"
         app:layout_constraintEnd_toEndOf="parent"
@@ -184,5 +184,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login_google" />
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/loadingIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:indeterminate="true"
+        app:indicatorColor="@color/primary"
+        app:trackColor="@color/container"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -29,7 +29,7 @@
         android:clipToPadding="false">
 
         <!-- Scrollable content -->
-        <include layout="@layout/activity_report"/>
+        <include android:id="@+id/activity_report" layout="@layout/activity_report"/>
     </androidx.core.widget.NestedScrollView>
 
 

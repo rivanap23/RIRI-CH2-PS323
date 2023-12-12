@@ -1,5 +1,7 @@
 package com.riridev.ririapp.ui.emergency
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,12 +15,20 @@ class EmergencyActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEmergencyBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.topAppBar)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
 
+        setupRecyclerView()
+    }
+
+    private fun setupRecyclerView(){
         val layoutManager = LinearLayoutManager(this)
         binding.rvEmergency.layoutManager = layoutManager
 
         val adapter = EmergencyAdapter {
-            //do nothing
+            val phoneNumber = it.contact.toString()
+            val dialPhoneIntent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phoneNumber"))
+            startActivity(dialPhoneIntent)
         }
         adapter.submitList(InstansiDummy.dataInstansi)
         binding.rvEmergency.adapter = adapter

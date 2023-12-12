@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,31 +19,60 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Riri"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAf13j6uthGkS_SyQjq954q8qWhFr5PQBE" />
+
+        <activity
+            android:name=".ui.report.MapsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_maps" />
+        <activity
+            android:name=".ui.discuss.AddDiscussActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.discuss.DiscussActivity"/>
+        <activity
+            android:name=".ui.history.HistoryActivity"
+            android:exported="false"
+            android:parentActivityName=".ui.main.MainActivity"/>
         <activity
             android:name=".ui.discuss.DiscussActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.main.MainActivity"/>
         <activity
             android:name=".ui.emergency.EmergencyActivity"
-            android:exported="true" />
+            android:exported="false"
+            android:parentActivityName=".ui.main.MainActivity"/>
         <activity
             android:name=".ui.report.ReportActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ui.main.MainActivity" />
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".ui.register.RegisterActivity"
             android:exported="false" />
         <activity
             android:name=".ui.login.LoginActivity"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="false"/>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

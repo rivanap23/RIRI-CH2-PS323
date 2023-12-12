@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.riridev.ririapp.databinding.FragmentHomeBinding
+import com.riridev.ririapp.ui.discuss.DiscussActivity
 import com.riridev.ririapp.ui.emergency.EmergencyActivity
+import com.riridev.ririapp.ui.history.HistoryActivity
 import com.riridev.ririapp.ui.report.ReportActivity
 
 class HomeFragment : Fragment() {
@@ -24,10 +26,10 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setupActionMenu()
+        setupActionBottomNav()
     }
 
-    private fun setupActionMenu(){
+    private fun setupActionBottomNav(){
         binding?.homeLayout?.btnReport?.setOnClickListener {
             val intent = Intent(requireContext(), ReportActivity::class.java)
             startActivity(intent)
@@ -35,6 +37,16 @@ class HomeFragment : Fragment() {
 
         binding?.homeLayout?.btnEmergency?.setOnClickListener {
             val intent = Intent(requireContext(), EmergencyActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding?.homeLayout?.btnHistory?.setOnClickListener {
+            val intent = Intent(requireContext(), HistoryActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding?.homeLayout?.btnForum?.setOnClickListener {
+            val intent = Intent(requireContext(), DiscussActivity::class.java)
             startActivity(intent)
         }
     }

@@ -11,7 +11,7 @@
         android:paddingBottom="130dp"
         android:clipToPadding="false">
 
-        <include layout="@layout/profile_layout" />
+        <include android:id="@+id/profile_layout" layout="@layout/profile_layout" />
 
     </androidx.core.widget.NestedScrollView>
 
