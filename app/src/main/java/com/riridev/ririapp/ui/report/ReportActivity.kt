@@ -8,21 +8,21 @@ import android.location.Location
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.gms.location.LocationServices
-import com.riridev.ririapp.data.model.Report
+import com.riridev.ririapp.data.model.ReportModel
+import com.riridev.ririapp.data.result.Result
 import com.riridev.ririapp.databinding.ReportLayoutBinding
 import com.riridev.ririapp.ui.ViewModelFactory
 import com.riridev.ririapp.utils.getImageUri
 import com.riridev.ririapp.utils.reduceFileImage
 import com.riridev.ririapp.utils.uriToFile
 import java.io.IOException
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.util.Locale
 
 class ReportActivity : AppCompatActivity() {
@@ -41,7 +41,6 @@ class ReportActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         setupAction()
-
     }
 
     private fun setupAction() {
@@ -60,20 +59,51 @@ class ReportActivity : AppCompatActivity() {
 
         binding.activityReport.btnSend.setOnClickListener {
             //send the form
-            val title = binding.activityReport.etTitle.text.toString()
-            val instansi = binding.activityReport.tvInstansiReport.text.toString()
-            val category = binding.activityReport.tvCategoryReport.text.toString()
-            val description = binding.activityReport.etDescription.text.toString()
-            val location = binding.activityReport.etLocation.text.toString()
-            val detailLocation = binding.activityReport.etDetailLocation.text.toString()
-
             currentImageUri?.let { uri ->
-               val image = uriToFile(uri, this).reduceFileImage()
+                sendReport(uri)
             }
+        }
+    }
 
-            val currentDate = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(Date())
-            val report = Report(1, title, instansi, category, description, location, currentDate)
-            Log.d("TAG", "setupAction: $report")
+    private fun sendReport(uri: Uri){
+        val title = binding.activityReport.etTitle.text.toString()
+        val instansi = binding.activityReport.tvInstansiReport.text.toString()
+        val category = binding.activityReport.tvCategoryReport.text.toString()
+        val description = binding.activityReport.etDescription.text.toString()
+        val location = binding.activityReport.etLocation.text.toString()
+        val detailLocation = binding.activityReport.etDetailLocation.text.toString()
+
+        val image = uriToFile(uri, this).reduceFileImage()
+        val report = ReportModel(
+            title,
+            instansi,
+            category,
+            description,
+            location,
+            detailLocation,
+            image
+        )
+
+        reportViewModel.sendReport(report).observe(this){result ->
+            when (result) {
+                is Result.Loading -> {
+                    showLoading(true)
+                    Log.d("TAG", "LOADING")
+                }
+
+                is Result.Success -> {
+                    showLoading(false)
+                    Log.d("TAG", "${result.data}")
+                    Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
+                    finish()
+                }
+
+                is Result.Error -> {
+                    showLoading(false)
+                    Log.d("TAG", result.error)
+                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -135,7 +165,11 @@ class ReportActivity : AppCompatActivity() {
                     }
                     .addOnFailureListener { e ->
                         // Handle the failure
-                        Toast.makeText(this, "Error getting location: ${e.message}", Toast.LENGTH_SHORT)
+                        Toast.makeText(
+                            this,
+                            "Error getting location: ${e.message}",
+                            Toast.LENGTH_SHORT
+                        )
                             .show()
                     }
             } catch (e: SecurityException) {
@@ -173,5 +207,9 @@ class ReportActivity : AppCompatActivity() {
         }
     }
 
+    private fun showLoading(isLoading: Boolean) {
+        binding.loadingIndicator.visibility =
+            if (isLoading) View.VISIBLE else View.GONE
+    }
 
 }

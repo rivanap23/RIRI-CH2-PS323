@@ -29,7 +29,7 @@ class LoginActivity : AppCompatActivity() {
         checkInput()
         setupAction()
 
-        loginViewModel.login.observe(this){ result ->
+        loginViewModel.login.observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
                     showLoading(true)
@@ -38,11 +38,13 @@ class LoginActivity : AppCompatActivity() {
                 is Result.Success -> {
                     showLoading(false)
                     val user = UserModel(
+                        result.data.userId,
+                        result.data.username,
                         result.data.accessToken,
                         true
                     )
                     loginViewModel.saveSession(user)
-                    showToast("${result.data.accessToken} ${result.data.refreshToken}")
+                    //ganti pake snackbar
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
@@ -56,6 +58,7 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setupAction() {
         binding.tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
@@ -67,6 +70,7 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.loginUser(email, pass)
         }
     }
+
 
     private fun checkInput() {
         binding.activityLogin.etEmailUsername.addTextChangedListener(
@@ -118,12 +122,13 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun showLoading(isLoading: Boolean) {
-        binding.activityLogin.loadingIndicator.visibility = if (isLoading) View.VISIBLE else View.GONE
+        binding.activityLogin.loadingIndicator.visibility =
+            if (isLoading) View.VISIBLE else View.GONE
     }
 
     private fun setMyButtonEnable() {
         val email = binding.activityLogin.etEmailUsername.text.toString()
         val password = binding.activityLogin.etPassword.text.toString()
-        binding.activityLogin.btnLogin.isEnabled = ((email != null)&& (password != null))
+        binding.activityLogin.btnLogin.isEnabled = ((email != null) && (password != null))
     }
 }

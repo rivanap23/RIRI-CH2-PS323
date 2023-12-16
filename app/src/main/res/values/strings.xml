@@ -76,4 +76,11 @@
     <string name="kamera">Kamera</string>
     <string name="galeri">Galeri</string>
     <string name="unggah">Unggah</string>
+    <string name="like">Like</string>
+    <string name="forum_diskusi">Forum Diskusi</string>
+    <string name="pesan">Pesan</string>
+    <string name="laporan">Laporan</string>
+    <string name="lupa_kata_sandi">Lupa Kata Sandi</string>
+    <string name="forgot_description">Masukan email untuk mengatur ulang kata sandi anda!</string>
+    <string name="simpan">Simpan</string>
 </resources>

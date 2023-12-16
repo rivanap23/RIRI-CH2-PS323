@@ -33,7 +33,8 @@ class RegisterActivity : AppCompatActivity() {
 
                 is Result.Success -> {
                     showLoading(false)
-                    showToast(result.data.userId)
+                    //nanti ganti pake snackbar
+                    showToast(result.data.message)
                     val intent = Intent(this, LoginActivity::class.java)
                     startActivity(intent)
                     finish()

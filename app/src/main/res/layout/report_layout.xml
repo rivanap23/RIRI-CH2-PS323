@@ -7,29 +7,43 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
+            app:layout_scrollFlags="snap"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:navigationIconTint="@color/black"
-            app:title="Laporan"
-            app:titleTextAppearance="@style/ThemeOverlay.App.Title.TopAppBar"/>
+            app:title="@string/laporan"
+            app:titleTextAppearance="@style/ThemeOverlay.App.Title.TopAppBar" />
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="@color/primary"
+            app:trackColor="@color/container" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        android:clipToPadding="false"
         android:paddingBottom="50dp"
-        android:clipToPadding="false">
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <!-- Scrollable content -->
-        <include android:id="@+id/activity_report" layout="@layout/activity_report"/>
+        <include
+            android:id="@+id/activity_report"
+            layout="@layout/activity_report" />
     </androidx.core.widget.NestedScrollView>
 
 

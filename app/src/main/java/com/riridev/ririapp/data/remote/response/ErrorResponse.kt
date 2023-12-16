@@ -3,7 +3,6 @@ package com.riridev.ririapp.data.remote.response
 import com.google.gson.annotations.SerializedName
 
 data class ErrorResponse(
-
-    @field:SerializedName("error")
+    @field:SerializedName("message")
     val message: String
 )

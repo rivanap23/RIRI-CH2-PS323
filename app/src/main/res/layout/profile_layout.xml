@@ -1,38 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:paddingBottom="10dp">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/shapeableImageView"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/iv_profile"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_marginTop="20dp"
-        android:padding="8dp"
         android:contentDescription="@string/profile_picture"
-        android:src="@drawable/ic_launcher_background"
+        android:padding="8dp"
+        android:src="@drawable/baseline_account_circle_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
-        app:strokeColor="@color/primary"
-        app:strokeWidth="2dp" />
+        app:civ_border_color="@color/primary"
+        app:civ_border_width="4dp"
+        app:civ_border_overlay="true"
+        />
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btn_edit_profile_pic"
+        style="?attr/materialIconButtonFilledTonalStyle"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:backgroundTint="@color/primary_variant"
+        android:contentDescription="@string/report"
+        app:icon="@drawable/outline_create_24"
+        app:iconGravity="top"
+        app:iconSize="30dp"
+        app:iconTint="@color/black"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
+        app:layout_constraintEnd_toEndOf="@+id/iv_profile"
+        android:elevation="4dp"/>
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tv_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/inter_bold"
         android:text="@string/nama_lengkap"
         android:textSize="22sp"
-        app:layout_constraintEnd_toEndOf="@+id/shapeableImageView"
-        app:layout_constraintStart_toStartOf="@+id/shapeableImageView"
-        app:layout_constraintTop_toBottomOf="@+id/shapeableImageView" />
+        app:layout_constraintEnd_toEndOf="@+id/iv_profile"
+        app:layout_constraintStart_toStartOf="@+id/iv_profile"
+        app:layout_constraintTop_toBottomOf="@+id/iv_profile" />
 
     <TextView
-        android:id="@+id/textView6"
+        android:id="@+id/tv_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -40,13 +56,13 @@
         android:text="@string/email_gmail_com"
         android:textColor="@color/gray"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="@+id/textView5"
-        app:layout_constraintStart_toStartOf="@+id/textView5"
-        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+        app:layout_constraintEnd_toEndOf="@+id/tv_username"
+        app:layout_constraintStart_toStartOf="@+id/tv_username"
+        app:layout_constraintTop_toBottomOf="@+id/tv_username" />
 
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView3"
+        android:id="@+id/card_edit_profile"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginHorizontal="20dp"
@@ -55,7 +71,7 @@
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView6">
+        app:layout_constraintTop_toBottomOf="@+id/tv_email">
 
         <TextView
             android:layout_width="wrap_content"
@@ -70,13 +86,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:contentDescription="@string/edit_profile"
             android:layout_margin="8dp"
+            android:contentDescription="@string/edit_profile"
             android:src="@drawable/baseline_arrow_forward_ios_24" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView4"
+        android:id="@+id/card_edit_password"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginHorizontal="20dp"
@@ -85,7 +101,7 @@
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView3">
+        app:layout_constraintTop_toBottomOf="@+id/card_edit_profile">
 
         <TextView
             android:layout_width="wrap_content"
@@ -100,13 +116,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:contentDescription="@string/edit_password"
             android:layout_margin="8dp"
+            android:contentDescription="@string/edit_password"
             android:src="@drawable/baseline_arrow_forward_ios_24" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView5"
+        android:id="@+id/card_change_language"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginHorizontal="20dp"
@@ -115,7 +131,7 @@
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView4">
+        app:layout_constraintTop_toBottomOf="@+id/card_edit_password">
 
         <TextView
             android:layout_width="wrap_content"
@@ -130,13 +146,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:contentDescription="@string/ganti_bahasa"
             android:layout_margin="8dp"
+            android:contentDescription="@string/ganti_bahasa"
             android:src="@drawable/baseline_arrow_forward_ios_24" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView6"
+        android:id="@+id/card_about_us"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginHorizontal="20dp"
@@ -145,7 +161,7 @@
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView5">
+        app:layout_constraintTop_toBottomOf="@+id/card_change_language">
 
         <TextView
             android:layout_width="wrap_content"
@@ -160,8 +176,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:contentDescription="@string/rating_kami"
             android:layout_margin="8dp"
+            android:contentDescription="@string/rating_kami"
             android:src="@drawable/baseline_arrow_forward_ios_24" />
     </androidx.cardview.widget.CardView>
 
@@ -175,7 +191,7 @@
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView6">
+        app:layout_constraintTop_toBottomOf="@+id/card_about_us">
 
         <TextView
             android:layout_width="wrap_content"
@@ -190,13 +206,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:contentDescription="@string/tentang_kami"
             android:layout_margin="8dp"
+            android:contentDescription="@string/tentang_kami"
             android:src="@drawable/baseline_arrow_forward_ios_24" />
     </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView8"
+        android:id="@+id/card_term_and_condition"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_marginHorizontal="20dp"
@@ -220,8 +236,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center"
-            android:contentDescription="@string/syarat_dan_ketentuan"
             android:layout_margin="8dp"
+            android:contentDescription="@string/syarat_dan_ketentuan"
             android:src="@drawable/baseline_arrow_forward_ios_24" />
     </androidx.cardview.widget.CardView>
 
@@ -229,13 +245,14 @@
         android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
+        android:paddingBottom="8dp"
         android:backgroundTint="@color/primary_variant"
         app:cardCornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView8">
+        app:layout_constraintTop_toBottomOf="@+id/card_term_and_condition">
 
         <TextView
             android:layout_width="wrap_content"
@@ -254,5 +271,6 @@
             android:contentDescription="@string/keluar"
             android:src="@drawable/baseline_arrow_forward_ios_24" />
     </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

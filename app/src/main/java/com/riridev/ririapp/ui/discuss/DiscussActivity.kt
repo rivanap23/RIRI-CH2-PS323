@@ -2,12 +2,13 @@ package com.riridev.ririapp.ui.discuss
 
 import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riridev.ririapp.data.dummy.DisscussDummy
 import com.riridev.ririapp.databinding.ActivityDiscussBinding
 import com.riridev.ririapp.ui.adapter.DiscussAdapter
+import com.riridev.ririapp.ui.adddiscuss.AddDiscussActivity
+import com.riridev.ririapp.ui.detaildiscuss.DetailDiscussActivity
 
 class DiscussActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDiscussBinding
@@ -27,7 +28,9 @@ class DiscussActivity : AppCompatActivity() {
         binding.rvDiscuss.layoutManager = layoutManager
 
         val adapter = DiscussAdapter {
-            Toast.makeText(this, "$it", Toast.LENGTH_SHORT).show()
+            val intent = Intent(this, DetailDiscussActivity::class.java)
+            intent.putExtra("discuss", it)
+            startActivity(intent)
         }
         adapter.submitList(DisscussDummy.disscuss)
         binding.rvDiscuss.adapter = adapter

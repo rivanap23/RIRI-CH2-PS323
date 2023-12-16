@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="450dp"
+    android:layout_height="500dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginBottom="20dp">
 
@@ -42,12 +42,12 @@
         <TextView
             android:id="@+id/date_upload"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1"
             android:text="@string/date"
+            android:textSize="12sp"
             android:textColor="@color/gray"
-            app:layout_constraintBottom_toTopOf="@+id/iv_disccuss"
             app:layout_constraintEnd_toEndOf="@+id/yourname"
             app:layout_constraintStart_toStartOf="@+id/yourname"
             app:layout_constraintTop_toBottomOf="@+id/yourname" />
@@ -71,7 +71,7 @@
             android:id="@+id/title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="14dp"
             android:fontFamily="@font/poppins_semibold"
             android:maxLines="2"
             android:text="@string/judul_laporan"
@@ -99,27 +99,38 @@
 
         <ImageButton
             android:id="@+id/btn_comment"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
-            android:contentDescription="@string/comment"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/comment"
             android:src="@drawable/outline_comment_24"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/btn_share" />
+            app:layout_constraintEnd_toStartOf="@id/btn_share"
+            app:layout_constraintTop_toTopOf="@id/btn_share" />
+
+        <ImageButton
+            android:id="@+id/btn_like"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@android:color/transparent"
+            android:contentDescription="@string/like"
+            android:src="@drawable/baseline_thumb_up_off_alt_24"
+            app:layout_constraintBottom_toBottomOf="@+id/btn_share"
+            app:layout_constraintEnd_toStartOf="@+id/btn_comment"
+            app:layout_constraintTop_toTopOf="@+id/btn_share" />
 
         <ImageButton
             android:id="@+id/btn_share"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
-            android:contentDescription="@string/share"
             android:background="@android:color/transparent"
+            android:contentDescription="@string/share"
             android:src="@drawable/outline_share_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/description_discuss" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -13,9 +13,9 @@
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_title"
@@ -112,10 +112,10 @@
             android:id="@+id/et_location"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:enabled="false"
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/lokasi"
-            android:enabled="false"
             android:inputType="none"
             android:typeface="normal" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -128,9 +128,9 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_semibold"
-        android:textSize="16sp"
         android:text="@string/set_location"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -164,17 +164,17 @@
         android:id="@+id/iv_bukti"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:minHeight="200dp"
-        android:scaleType="fitCenter"
-        android:adjustViewBounds="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        app:srcCompat="@drawable/outline_image_24"
+        android:adjustViewBounds="true"
+        android:minHeight="200dp"
+        android:scaleType="fitCenter"
         app:layout_constraintBottom_toTopOf="@+id/btn_ambil_bukti"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_detail_location_report" />
+        app:layout_constraintTop_toBottomOf="@+id/til_detail_location_report"
+        app:srcCompat="@drawable/outline_image_24" />
 
     <com.riridev.ririapp.ui.custom.CustomButton
         android:id="@+id/btn_ambil_bukti"
@@ -184,13 +184,14 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_semibold"
-        android:textSize="16sp"
         android:text="@string/ambil_bukti_foto"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/iv_bukti" />
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
@@ -241,11 +242,11 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="@string/kirim"
         android:enabled="false"
         android:fontFamily="@font/poppins_semibold"
-        android:textSize="16sp"
+        android:text="@string/kirim"
         android:textColor="@color/white"
+        android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="@+id/cardView2"
         app:layout_constraintTop_toBottomOf="@+id/cardView2" />

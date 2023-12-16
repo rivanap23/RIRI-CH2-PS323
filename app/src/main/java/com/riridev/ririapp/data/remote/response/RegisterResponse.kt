@@ -4,5 +4,8 @@ import com.google.gson.annotations.SerializedName
 
 data class RegisterResponse(
 	@field:SerializedName("userId")
-	val userId: String
+	val userId: String,
+
+	@field:SerializedName("message")
+	val message: String
 )
