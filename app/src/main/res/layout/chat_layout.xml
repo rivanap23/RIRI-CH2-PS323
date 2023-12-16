@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:minHeight="?attr/actionBarSize"
             app:title="@string/pesan"
+            app:menu="@menu/chat_menu"
             app:titleTextAppearance="@style/ThemeOverlay.App.Title.TopAppBar" />
 
     </com.google.android.material.appbar.AppBarLayout>

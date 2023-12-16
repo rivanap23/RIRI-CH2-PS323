@@ -83,4 +83,10 @@
     <string name="lupa_kata_sandi">Lupa Kata Sandi</string>
     <string name="forgot_description">Masukan email untuk mengatur ulang kata sandi anda!</string>
     <string name="simpan">Simpan</string>
+    <string name="riwayat_laporan">Riwayat Laporan</string>
+    <string name="berita">Berita</string>
+    <string name="title_news">Title News</string>
+    <string name="image_news">Image News</string>
+    <string name="cari">Cari</string>
+    <string name="sumber">Sumber</string>
 </resources>

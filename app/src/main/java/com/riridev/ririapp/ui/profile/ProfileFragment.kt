@@ -2,6 +2,7 @@ package com.riridev.ririapp.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
+import com.riridev.ririapp.R
 import com.riridev.ririapp.data.remote.response.UserResponse
 import com.riridev.ririapp.data.result.Result
 import com.riridev.ririapp.databinding.FragmentProfileBinding
@@ -42,8 +44,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun getProfile() {
-        profileViewModel.getUserProfile()
-        profileViewModel.profileDetail.observe(viewLifecycleOwner) { result ->
+        profileViewModel.getUserProfile().observe(viewLifecycleOwner){ result ->
             when (result) {
                 is Result.Loading -> {
                     showLoading(true)
@@ -54,9 +55,11 @@ class ProfileFragment : Fragment() {
                     userProfile = result.data
                     binding?.profileLayout?.tvEmail?.text = result.data.email
                     binding?.profileLayout?.tvUsername?.text = result.data.username
-                    Glide.with(binding?.profileLayout?.root as View)
-                        .load(result.data.profileImageUrl)
+                    Glide.with(requireActivity())
+                        .load(userProfile.profileImageUrl)
+                        .placeholder(R.drawable.baseline_account_circle_24)
                         .into(binding?.profileLayout?.ivProfile as ImageView)
+                    Log.d("TAG", "getProfile: ${userProfile.profileImageUrl}")
                 }
 
                 is Result.Error -> {
@@ -96,6 +99,7 @@ class ProfileFragment : Fragment() {
     private fun logout() {
         binding?.profileLayout?.logout?.setOnClickListener {
             profileViewModel.logout()
+            activity?.finish()
         }
     }
 
@@ -114,8 +118,8 @@ class ProfileFragment : Fragment() {
         getProfile()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        _binding = null
+    override fun onPause() {
+        super.onPause()
+        getProfile()
     }
 }

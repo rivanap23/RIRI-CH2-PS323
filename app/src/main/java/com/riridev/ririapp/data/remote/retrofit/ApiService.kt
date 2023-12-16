@@ -40,7 +40,7 @@ interface ApiService {
     @POST("{userId}/update-prof-image")
     suspend fun uploadProfileImage(
         @Path("userId") userId: String,
-        @Part("file") file: MultipartBody.Part,
+        @Part file: MultipartBody.Part,
     ): UploadProfilePictureResponse
 
     @Multipart

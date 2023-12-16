@@ -14,6 +14,7 @@ import com.riridev.ririapp.ui.adapter.HomeCarouselAdapter
 import com.riridev.ririapp.ui.discuss.DiscussActivity
 import com.riridev.ririapp.ui.emergency.EmergencyActivity
 import com.riridev.ririapp.ui.history.HistoryActivity
+import com.riridev.ririapp.ui.news.NewsActivity
 import com.riridev.ririapp.ui.report.ReportActivity
 
 class HomeFragment : Fragment() {
@@ -61,6 +62,11 @@ class HomeFragment : Fragment() {
 
         binding?.homeLayout?.btnForum?.setOnClickListener {
             val intent = Intent(requireContext(), DiscussActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding?.homeLayout?.btnNews?.setOnClickListener {
+            val intent = Intent(requireContext(), NewsActivity::class.java)
             startActivity(intent)
         }
     }

@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
-            android:hint="@string/username_email"
+            android:hint="@string/email"
             android:textColor="@color/black"
             android:inputType="text|textEmailAddress"
             android:maxLines="1"

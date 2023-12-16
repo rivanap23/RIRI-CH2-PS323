@@ -22,7 +22,7 @@ import java.util.Locale
 
 private const val FILENAME_FORMAT = "yyyyMMdd_HHmmss"
 private val timeStamp: String = SimpleDateFormat(FILENAME_FORMAT, Locale.US).format(Date())
-private const val MAXIMAL_SIZE = 3000000
+private const val MAXIMAL_SIZE = 5000000
 
 fun createCustomTempFile(context: Context): File {
     val filesDir = context.externalCacheDir

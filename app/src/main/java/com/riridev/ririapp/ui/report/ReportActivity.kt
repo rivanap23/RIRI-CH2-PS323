@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -45,8 +46,12 @@ class ReportActivity : AppCompatActivity() {
 
     private fun setupAction() {
         //click ambil bukti
-        binding.activityReport.btnAmbilBukti.setOnClickListener {
+        binding.activityReport.btnKameraReport.setOnClickListener {
             getImageProof()
+        }
+
+        binding.activityReport.btnGaleriReport.setOnClickListener {
+            startGallery()
         }
 
         binding.activityReport.btnAmbilLokasi.setOnClickListener {
@@ -88,24 +93,39 @@ class ReportActivity : AppCompatActivity() {
             when (result) {
                 is Result.Loading -> {
                     showLoading(true)
-                    Log.d("TAG", "LOADING")
                 }
 
                 is Result.Success -> {
                     showLoading(false)
-                    Log.d("TAG", "${result.data}")
                     Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
                     finish()
                 }
 
                 is Result.Error -> {
                     showLoading(false)
-                    Log.d("TAG", result.error)
                     Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                 }
             }
         }
     }
+
+    private fun startGallery() {
+        launcherGallery.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+    }
+
+    private val launcherGallery =
+        registerForActivityResult(
+            ActivityResultContracts.PickVisualMedia(),
+        ) { uri: Uri? ->
+            if (uri != null) {
+                currentImageUri = uri
+                currentImageUri?.let {
+                    binding.activityReport.ivBukti.setImageURI(it)
+                }
+            } else {
+                Log.d("Photo Picker", "No media selected")
+            }
+        }
 
     private fun getImageProof() {
         currentImageUri = getImageUri(this)

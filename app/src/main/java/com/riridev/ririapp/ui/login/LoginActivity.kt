@@ -8,10 +8,13 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.riridev.ririapp.R
 import com.riridev.ririapp.data.local.pref.UserModel
 import com.riridev.ririapp.data.result.Result
 import com.riridev.ririapp.databinding.LoginLayoutBinding
 import com.riridev.ririapp.ui.ViewModelFactory
+import com.riridev.ririapp.ui.custom.CustomButton
 import com.riridev.ririapp.ui.main.MainActivity
 import com.riridev.ririapp.ui.register.RegisterActivity
 
@@ -63,12 +66,27 @@ class LoginActivity : AppCompatActivity() {
         binding.tvRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+            finish()
         }
         binding.activityLogin.btnLogin.setOnClickListener {
             val email = binding.activityLogin.etEmailUsername.text.toString()
             val pass = binding.activityLogin.etPassword.text.toString()
             loginViewModel.loginUser(email, pass)
         }
+        binding.activityLogin.tvForgotPassword.setOnClickListener {
+            showDialog()
+        }
+    }
+
+    private fun showDialog() {
+        val view = layoutInflater.inflate(R.layout.dialog_forget_password, null)
+        val button = view.findViewById<CustomButton>(R.id.btn_send_forgot)
+        button.setOnClickListener {
+            Toast.makeText(this, "1", Toast.LENGTH_SHORT).show()
+        }
+        MaterialAlertDialogBuilder(this)
+            .setView(view)
+            .show()
     }
 
 

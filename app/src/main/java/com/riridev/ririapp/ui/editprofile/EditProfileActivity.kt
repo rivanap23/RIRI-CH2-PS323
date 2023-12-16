@@ -33,6 +33,8 @@ class EditProfileActivity : AppCompatActivity() {
         binding.etBirthDate.setText(dateOfBirth)
         binding.etEmailRegister.setText(email)
         binding.etBirthPlace.setText(placeOfBirth)
+        binding.etBirthDate.isEnabled = false
+        binding.etBirthPlace.isEnabled = false
 
         editProfileViewModel.editProflie.observe(this) { result ->
             when (result) {

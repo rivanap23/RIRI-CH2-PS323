@@ -21,7 +21,7 @@
             android:minHeight="?attr/actionBarSize"
             app:navigationIcon="@drawable/baseline_arrow_back_24"
             app:navigationIconTint="@color/black"
-            app:title="Riwayat Laporan"
+            app:title="@string/riwayat_laporan"
             app:titleTextAppearance="@style/ThemeOverlay.App.Title.TopAppBar" />
 
     </com.google.android.material.appbar.AppBarLayout>

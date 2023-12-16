@@ -1,5 +1,6 @@
 package com.riridev.ririapp.data
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
@@ -17,6 +18,7 @@ import com.riridev.ririapp.data.result.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
@@ -63,36 +65,43 @@ class UserRepository private constructor(
         }
     }
 
-    suspend fun getUserDetail(): Result<UserResponse> {
-        return try {
-            val user = userPreference.getSession().first()
-            val userResponse = apiService.getUserDetail(user.userId)
-            Result.Success(userResponse)
-        } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-            val errorMessage = errorBody.message
-            Result.Error("Failed: $errorMessage")
+    fun getUserDetail(): LiveData<Result<UserResponse>> {
+        return liveData {
+            emit(Result.Loading)
+            try {
+                val user = getSession().first()
+                Log.d("TAG", "getUserDetail: $user")
+                val userResponse = apiService.getUserDetail(user.userId)
+                emit(Result.Success(userResponse))
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error("Failed: $errorMessage"))
+            }
         }
     }
 
-    suspend fun uploadProfilePicture(file: File): Result<UploadProfilePictureResponse> {
-        return try {
-            val requestFile = file.asRequestBody("image/jpeg".toMediaType())
-            val multipartBody =
-                MultipartBody.Part.createFormData(
-                    "file",
-                    file.name,
-                    requestFile,
-                )
-            val user = userPreference.getSession().first()
-            val uploadResponse = apiService.uploadProfileImage(user.userId, multipartBody)
-            Result.Success(uploadResponse)
-        } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-            val errorMessage = errorBody.message
-            Result.Error("Upload Failed: $errorMessage")
+    fun uploadProfilePicture(file: File): LiveData<Result<UploadProfilePictureResponse>> {
+        return liveData {
+            emit(Result.Loading)
+            try {
+                val requestFile = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
+                val multipartBody =
+                    MultipartBody.Part.createFormData(
+                        "file",
+                        file.name,
+                        requestFile,
+                    )
+                val user = userPreference.getSession().first()
+                val uploadResponse = apiService.uploadProfileImage(user.userId, multipartBody)
+                emit(Result.Success(uploadResponse))
+            } catch (e: HttpException) {
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error("Upload Failed: $errorMessage"))
+            }
         }
     }
 

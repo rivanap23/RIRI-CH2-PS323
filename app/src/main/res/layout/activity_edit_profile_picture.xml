@@ -26,6 +26,16 @@
             app:title="Edit Foto Profil"
             app:titleTextAppearance="@style/ThemeOverlay.App.Title.TopAppBar" />
 
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|top"
+            android:indeterminate="true"
+            android:visibility="gone"
+            app:indicatorColor="@color/primary"
+            app:trackColor="@color/container" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.imageview.ShapeableImageView

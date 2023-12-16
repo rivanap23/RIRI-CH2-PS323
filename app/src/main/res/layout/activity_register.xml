@@ -55,7 +55,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_tagline">
 
-        <com.google.android.material.textfield.TextInputEditText
+        <com.riridev.ririapp.ui.custom.EditTextField
             android:id="@+id/et_email_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

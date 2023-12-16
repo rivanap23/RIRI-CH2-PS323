@@ -170,26 +170,57 @@
         android:adjustViewBounds="true"
         android:minHeight="200dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/btn_ambil_bukti"
+        app:layout_constraintBottom_toTopOf="@+id/btn_kamera_report"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_detail_location_report"
+        app:layout_constraintTop_toBottomOf="@+id/tv_bukti_foto"
         app:srcCompat="@drawable/outline_image_24" />
 
-    <com.riridev.ririapp.ui.custom.CustomButton
-        android:id="@+id/btn_ambil_bukti"
+    <TextView
+        android:id="@+id/tv_bukti_foto"
         android:layout_width="0dp"
-        android:layout_height="55dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/ambil_bukti_foto"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/til_detail_location_report" />
+
+    <com.riridev.ririapp.ui.custom.CustomButton
+        android:id="@+id/btn_kamera_report"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/kamera"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        app:cornerRadius="10dp"
+        app:layout_constraintEnd_toStartOf="@id/btn_galeri_report"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/iv_bukti" />
+
+    <com.riridev.ririapp.ui.custom.CustomButton
+        android:id="@+id/btn_galeri_report"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/galeri"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btn_kamera_report"
         app:layout_constraintTop_toBottomOf="@+id/iv_bukti" />
 
 
@@ -203,7 +234,7 @@
         android:backgroundTint="@color/container"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_ambil_bukti">
+        app:layout_constraintTop_toBottomOf="@+id/btn_kamera_report">
 
         <LinearLayout
             android:layout_width="match_parent"
