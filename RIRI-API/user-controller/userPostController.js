@@ -229,7 +229,8 @@ async function getAllPosts(req, res) {
       const userQuerySnapshot = await db.collection('users').where('username', '==', username).get();
 
       if (userQuerySnapshot.empty) {
-        return res.status(404).send({message: 'User not found for the post.'});
+        console.error(`User not found for post with username: ${username}`);
+        return;
       }
 
       const userData = userQuerySnapshot.docs[0].data();
