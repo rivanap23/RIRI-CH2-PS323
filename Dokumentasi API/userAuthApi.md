@@ -1,8 +1,8 @@
-# userAuthApi
+# User Auth Api
 Dokumentasi authentikasi pengguna
 
 
-## Register User API
+## Register User
 
 Endpoint : POST /register
 
@@ -31,7 +31,7 @@ Response Body Success :
 ```
 
 
-## Login User API
+## Login User
 
 Endpoint : POST /login
 
@@ -58,7 +58,7 @@ Response Body Success :
 ```
 
 
-## Logout User API
+## Logout User
 
 Endpoint : DELETE /:userId/logout
 
