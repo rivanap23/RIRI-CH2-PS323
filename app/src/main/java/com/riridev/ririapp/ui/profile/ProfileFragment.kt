@@ -38,13 +38,18 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         getProfile()
         setupAction()
     }
 
+    override fun onResume() {
+        super.onResume()
+        getProfile()
+    }
+
     private fun getProfile() {
-        profileViewModel.getUserProfile().observe(viewLifecycleOwner){ result ->
+        profileViewModel.getUserProfile()
+        profileViewModel.profileDetail.observe(viewLifecycleOwner){ result ->
             when (result) {
                 is Result.Loading -> {
                     showLoading(true)
@@ -113,13 +118,4 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        getProfile()
-    }
-
-    override fun onPause() {
-        super.onPause()
-        getProfile()
-    }
 }

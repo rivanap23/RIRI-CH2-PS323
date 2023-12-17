@@ -7,7 +7,6 @@ import android.location.Geocoder
 import android.location.Location
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -42,6 +41,26 @@ class ReportActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         setupAction()
+
+        reportViewModel.report.observe(this){result ->
+                when (result) {
+                    is Result.Loading -> {
+                        showLoading(true)
+                        binding.activityReport.btnSend.isEnabled = false
+                    }
+
+                    is Result.Success -> {
+                        showLoading(false)
+                        Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
+                        finish()
+                    }
+
+                    is Result.Error -> {
+                        showLoading(false)
+                        Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
     }
 
     private fun setupAction() {
@@ -88,25 +107,7 @@ class ReportActivity : AppCompatActivity() {
             detailLocation,
             image
         )
-
-        reportViewModel.sendReport(report).observe(this){result ->
-            when (result) {
-                is Result.Loading -> {
-                    showLoading(true)
-                }
-
-                is Result.Success -> {
-                    showLoading(false)
-                    Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-
-                is Result.Error -> {
-                    showLoading(false)
-                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
+        reportViewModel.sendReport(report)
     }
 
     private fun startGallery() {
@@ -123,7 +124,7 @@ class ReportActivity : AppCompatActivity() {
                     binding.activityReport.ivBukti.setImageURI(it)
                 }
             } else {
-                Log.d("Photo Picker", "No media selected")
+                Toast.makeText(this, "Gambar Kosong", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -214,7 +215,7 @@ class ReportActivity : AppCompatActivity() {
         try {
             addressList = geocoder.getFromLocation(latitude, longitude, 1)
 
-            if (addressList != null && addressList.isNotEmpty()) {
+            if (!addressList.isNullOrEmpty()) {
                 val address = addressList[0]
                 val addressText = address.getAddressLine(0)
                 // Use the addressText as needed (e.g., display in a TextView)

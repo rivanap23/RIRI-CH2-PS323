@@ -3,13 +3,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ui.history.DoneFragment">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_history"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:visibility="gone"
+        tools:visibility="visible"
         android:padding="8dp"
         tools:listitem="@layout/layout_history_item"/>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/loadingIndicator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:indeterminate="true"
+        android:layout_gravity="center"
+        app:indicatorColor="@color/primary"
+        app:trackColor="@color/container" />
+
 
 </FrameLayout>

@@ -43,10 +43,11 @@
         android:layout_margin="10dp"
         android:layout_weight="1"
         android:background="@drawable/edit_text_shadow"
-        android:hint="Say something..."
+        android:hint="@string/tuliskan_sesuatu"
         android:inputType="text"
         android:minHeight="48dp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:importantForAutofill="no" />
 
     <ImageView
         android:id="@+id/sendButton"
@@ -54,7 +55,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:enabled="false"
-        android:src="@drawable/outline_send_24" />
+        android:src="@drawable/outline_send_24"
+        android:contentDescription="@string/send_button" />
 
 </LinearLayout>
 

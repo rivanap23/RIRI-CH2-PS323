@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="230dp"
+    android:layout_margin="8dp"
+    app:cardCornerRadius="10dp"
+    android:backgroundTint="@color/primary_variant">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/carousel_image"
+            android:contentDescription="@string/carousel_background"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" 
+            android:alpha="0.3"/>
+
+        <TextView
+            android:id="@+id/tv_title_carousel"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="12dp"
+            android:fontFamily="@font/inter_bold"
+            android:maxLines="2"
+            android:text="@string/carousel_title"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_carousel_desc"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppins_medium"
+            android:text="@string/carousel_description"
+            android:textColor="@color/black"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/tv_title_carousel"
+            app:layout_constraintTop_toBottomOf="@+id/tv_title_carousel" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

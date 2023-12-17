@@ -31,7 +31,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:gravity="center"
             android:textColor="@color/black"
-            android:text="Pemadam Kebakaran"
+            android:text="@string/instansi"
             android:textSize="16sp" />
     </LinearLayout>
 

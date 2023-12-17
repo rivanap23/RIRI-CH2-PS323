@@ -2,16 +2,25 @@ package com.riridev.ririapp.ui.discuss
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.riridev.ririapp.data.dummy.DisscussDummy
+import com.riridev.ririapp.data.remote.response.GetDiscussionResponseItem
+import com.riridev.ririapp.data.result.Result
 import com.riridev.ririapp.databinding.ActivityDiscussBinding
+import com.riridev.ririapp.ui.DiscussViewModelFactory
 import com.riridev.ririapp.ui.adapter.DiscussAdapter
 import com.riridev.ririapp.ui.adddiscuss.AddDiscussActivity
 import com.riridev.ririapp.ui.detaildiscuss.DetailDiscussActivity
 
 class DiscussActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDiscussBinding
+    private val disscussViewModel: DisscussViewModel by viewModels {
+        DiscussViewModelFactory.getInstance(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDiscussBinding.inflate(layoutInflater)
@@ -19,20 +28,59 @@ class DiscussActivity : AppCompatActivity() {
         setSupportActionBar(binding.topAppBar)
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        setupRecyclerView()
+        getData()
         setupAction()
     }
 
-    private fun setupRecyclerView(){
+    override fun onResume() {
+        super.onResume()
+        disscussViewModel.getAllDiscussion()
+    }
+
+    private fun getData(){
+        disscussViewModel.getDiscussion.observe(this) { result ->
+            when(result){
+                is Result.Loading -> {
+                    showLoading(true)
+                }
+                is Result.Success -> {
+                    showLoading(false)
+                    val response = result.data
+                    setupRecyclerView(response)
+                }
+                is Result.Error -> {
+                    showLoading(false)
+                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+
+    }
+
+    private fun setupRecyclerView(response: List<GetDiscussionResponseItem>) {
         val layoutManager = LinearLayoutManager(this)
         binding.rvDiscuss.layoutManager = layoutManager
-
-        val adapter = DiscussAdapter {
+        val adapter = DiscussAdapter (
+            likeClick = {
+                disscussViewModel.addLikeDiscussion(it.postId).observe(this){result ->
+                    when(result){
+                        is Result.Loading -> {}
+                        is Result.Success -> {
+                            Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
+                        }
+                        is Result.Error -> {
+                            Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+                return@DiscussAdapter true
+            }
+        ){
             val intent = Intent(this, DetailDiscussActivity::class.java)
-            intent.putExtra("discuss", it)
+            intent.putExtra("post_id", it.postId)
             startActivity(intent)
         }
-        adapter.submitList(DisscussDummy.disscuss)
+        adapter.submitList(response)
         binding.rvDiscuss.adapter = adapter
     }
 
@@ -40,6 +88,14 @@ class DiscussActivity : AppCompatActivity() {
         binding.fabDiscuss.setOnClickListener {
             val intent = Intent(this, AddDiscussActivity::class.java)
             startActivity(intent)
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean){
+        if (isLoading){
+            binding.loadingIndicator.visibility = View.VISIBLE
+        } else {
+            binding.loadingIndicator.visibility = View.GONE
         }
     }
 }

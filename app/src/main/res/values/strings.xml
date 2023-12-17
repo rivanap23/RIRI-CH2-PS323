@@ -13,7 +13,6 @@
     <string name="birth_date">Tanggal lahir</string>
     <string name="logo_company">logo company</string>
     <string name="login_google">Masuk dengan Google</string>
-    <string name="username_email">Username/Email</string>
     <string name="forgot_password">Lupa kata sandi?</string>
     <string name="login">Masuk</string>
     <string name="home">Beranda</string>
@@ -29,16 +28,10 @@
     <string name="statistic_report">Statistik Laporan</string>
     <string name="emergency_contact">Kontak Darurat</string>
     <string name="term_condition_login">Dengan daftar ke aplikasi Riri, kamu menyetujui segala Syarat dan Ketentuan dan Kebijakan Privasi Riri</string>
-    <string name="background_bottom">background_bottom</string>
     <string name="ask_account_login">Belum punya akun?</string>
     <string name="daftar_disini">Daftar di sini</string>
     <string name="masuk_di_sini">Masuk di sini</string>
     <string name="ask_account_regis">Sudah punya akun?</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="title_activity_home2">HomeActivity2</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="email_gmail_com">email@gmail.com</string>
@@ -66,6 +59,7 @@
     <string name="set_location">Atur Lokasi</string>
     <string name="tab_verifikasi">Verifikasi</string>
     <string name="tab_diproses">Diproses</string>
+    <string name="tab_ditolak">Ditolak</string>
     <string name="tab_selesai">Selesai</string>
     <string name="date">27/10/2023</string>
     <string name="share">share</string>
@@ -89,4 +83,13 @@
     <string name="image_news">Image News</string>
     <string name="cari">Cari</string>
     <string name="sumber">Sumber</string>
+    <string name="nama_agensi">Nama Agensi</string>
+    <string name="label">Label</string>
+    <string name="carousel_background">carousel background</string>
+    <string name="carousel_title">carousel title</string>
+    <string name="carousel_description">carousel description</string>
+    <string name="tuliskan_sesuatu">Tuliskan sesuatu…</string>
+    <string name="send_button">send button</string>
+    <string name="urutkan">Urutkan</string>
+    <string name="author_news">%1$s %2$s</string>
 </resources>

@@ -85,7 +85,6 @@
             android:id="@+id/tv_description_news"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:justificationMode="inter_word"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppins_medium"
             android:lineSpacingExtra="8sp"

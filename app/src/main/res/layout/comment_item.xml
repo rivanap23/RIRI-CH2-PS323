@@ -11,7 +11,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="20dp"
         android:layout_marginBottom="8dp"
-        android:src="@drawable/indicator_process_history"
+        android:scaleType="centerCrop"
+        android:src="@drawable/baseline_account_circle_24"
         app:layout_constraintBottom_toBottomOf="@+id/tv_comment_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -20,17 +21,20 @@
 
     <TextView
         android:id="@+id/yourname"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
         android:layout_marginStart="8dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/username"
         android:textColor="@color/black"
+        android:layout_marginEnd="20dp"
         android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/iv_profile_comment"
-       app:layout_constraintTop_toTopOf="@id/iv_profile_comment"/>
+        app:layout_constraintTop_toTopOf="@id/iv_profile_comment" />
+
+
 
 
     <TextView

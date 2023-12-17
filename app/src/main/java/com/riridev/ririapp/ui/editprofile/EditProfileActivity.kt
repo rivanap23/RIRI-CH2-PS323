@@ -1,6 +1,7 @@
 package com.riridev.ririapp.ui.editprofile
 
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -39,15 +40,17 @@ class EditProfileActivity : AppCompatActivity() {
         editProfileViewModel.editProflie.observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
-                    //
+                    showLoading(true)
                 }
 
                 is Result.Success -> {
+                    showLoading(false)
                     Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
                     finish()
                 }
 
                 is Result.Error -> {
+                    showLoading(false)
                     Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -66,7 +69,13 @@ class EditProfileActivity : AppCompatActivity() {
             }
         }
     }
-
+    private fun showLoading(isLoading: Boolean){
+        if (isLoading){
+            binding.loadingIndicator.visibility = View.VISIBLE
+        } else {
+            binding.loadingIndicator.visibility = View.GONE
+        }
+    }
 
     companion object {
         const val USERNAME = "username_key"

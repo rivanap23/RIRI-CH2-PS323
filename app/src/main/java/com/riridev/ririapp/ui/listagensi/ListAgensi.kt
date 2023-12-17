@@ -2,8 +2,8 @@ package com.riridev.ririapp.ui.listagensi
 
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.riridev.ririapp.data.dummy.AgensiDummy
 import com.riridev.ririapp.databinding.ActivityListAgensiBinding
@@ -25,6 +25,7 @@ class ListAgensi : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityListAgensiBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        setSupportActionBar(binding.topAppBar)
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvAgensi.layoutManager = layoutManager

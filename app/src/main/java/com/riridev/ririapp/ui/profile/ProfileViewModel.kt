@@ -17,8 +17,11 @@ class ProfileViewModel(
     private var _profileDetail = MutableLiveData<Result<UserResponse>>()
     val profileDetail: LiveData<Result<UserResponse>> = _profileDetail
 
-    fun getUserProfile(): LiveData<Result<UserResponse>> {
-        return userRepository.getUserDetail()
+    fun getUserProfile(){
+        _profileDetail.value = Result.Loading
+        viewModelScope.launch {
+            _profileDetail.value = userRepository.getUserDetail()
+        }
     }
 
     fun updateProfilePicture(file: File): LiveData<Result<UploadProfilePictureResponse>>{

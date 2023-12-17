@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.riridev.ririapp.data.UserRepository
 import com.riridev.ririapp.data.di.Injection
 import com.riridev.ririapp.ui.editprofile.EditProfileViewModel
+import com.riridev.ririapp.ui.history.HistoryViewModel
 import com.riridev.ririapp.ui.login.LoginViewModel
 import com.riridev.ririapp.ui.main.MainViewModel
 import com.riridev.ririapp.ui.profile.ProfileViewModel
@@ -33,6 +34,9 @@ class ViewModelFactory(private val repository: UserRepository) : ViewModelProvid
             }
             modelClass.isAssignableFrom(EditProfileViewModel::class.java) -> {
                 EditProfileViewModel(repository) as T
+            }
+            modelClass.isAssignableFrom(HistoryViewModel::class.java) -> {
+                HistoryViewModel(repository) as T
             }
             else -> throw IllegalArgumentException("Unknown ViewModel class: " + modelClass.name)
         }

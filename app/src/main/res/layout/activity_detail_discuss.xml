@@ -1,59 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_height="match_parent"
+<ScrollView xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    tools:context=".ui.detaildiscuss.DetailDiscussActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".ui.detaildiscuss.DetailDiscussActivity">
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/appBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/topAppBar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="?attr/actionBarSize"
+                app:navigationIcon="@drawable/baseline_arrow_back_24"
+                app:navigationIconTint="@color/black"
+                app:title="@string/forum_diskusi"
+                app:titleTextAppearance="@style/ThemeOverlay.App.Title.TopAppBar" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
 
         <TextView
             android:id="@+id/title_detail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/appBarLayout"
             android:layout_marginStart="20dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
+            android:layout_marginBottom="10dp"
             android:fontFamily="@font/inter_bold"
             android:text="@string/judul_diskusi"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textColor="@color/black"
+            android:textSize="25sp" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
+            android:scaleType="centerCrop"
+            android:layout_below="@id/title_detail"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="8dp"
-            android:src="@drawable/indicator_process_history"
-            app:layout_constraintBottom_toBottomOf="@+id/date_upload"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title_detail"
-            app:layout_constraintVertical_bias="0.0"
+            android:src="@drawable/baseline_account_circle_24"
             app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full" />
 
         <TextView
             android:id="@+id/yourname"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/imageView"
+            android:layout_alignParentEnd="true"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
+            android:layout_toEndOf="@+id/imageView"
             android:fontFamily="@font/poppins_semibold"
+            android:gravity="center|start"
             android:text="@string/username"
             android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="@+id/iv_disccuss"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toEndOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/title_detail" />
+            android:textSize="16sp" />
 
+        <TextView
+            android:id="@+id/date_discuss"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/yourname"
+            android:layout_alignStart="@+id/yourname"
+            android:layout_alignEnd="@+id/yourname"
+            android:layout_alignBottom="@+id/imageView"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center|start"
+            android:text="@string/date"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/date_upload"
@@ -72,38 +100,114 @@
             android:id="@+id/iv_disccuss"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/date_discuss"
             android:layout_marginTop="10dp"
             android:minHeight="250dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/date_upload"
-            app:srcCompat="@drawable/ic_launcher_background" />
+            app:srcCompat="@drawable/outline_image_24" />
 
         <TextView
             android:id="@+id/description_discuss"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:minHeight="300dp"
+            android:layout_below="@+id/iv_disccuss"
             android:padding="20dp"
-            android:text="@string/deskripsi"
-            app:layout_constraintBottom_toTopOf="@+id/recyclerView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_disccuss" />
+            android:text="@string/deskripsi" />
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_action"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description_discuss">
+
+            <ImageButton
+                android:id="@+id/btn_comment"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/comment"
+                android:src="@drawable/outline_comment_24"
+                app:layout_constraintEnd_toStartOf="@id/btn_share"
+                app:layout_constraintTop_toTopOf="@id/btn_share" />
+
+            <ImageButton
+                android:id="@+id/btn_like"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/like"
+                android:src="@drawable/baseline_thumb_up_off_alt_24"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_share"
+                app:layout_constraintEnd_toStartOf="@+id/btn_comment"
+                app:layout_constraintTop_toTopOf="@+id/btn_share" />
+
+            <ImageButton
+                android:id="@+id/btn_share"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginEnd="10dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="@string/share"
+                android:src="@drawable/outline_share_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:padding="20dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/description_discuss"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:padding="10dp"
+            android:layout_below="@id/layout_action"
             tools:listitem="@layout/comment_item" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recyclerView"
+            android:layout_alignParentBottom="true"
+            android:background="@color/primary_variant"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:paddingHorizontal="10dp">
+
+            <EditText
+                android:id="@+id/messageEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:layout_weight="1"
+                android:autofillHints="name"
+                android:background="@drawable/edit_text_shadow"
+                android:hint="@string/tuliskan_sesuatu"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:padding="10dp" />
+
+            <ImageView
+                android:id="@+id/sendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:enabled="false"
+                android:contentDescription="@string/send_button"
+                android:src="@drawable/outline_send_24" />
+
+        </LinearLayout>
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/loadingIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminate="true"
+            app:indicatorColor="@color/primary"
+            app:trackColor="@color/container"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"/>
+    </RelativeLayout>
+
 </ScrollView>

@@ -28,6 +28,12 @@
             android:name=".ui.news.DetailNewsActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.listagensi.ListAgensi"
+            android:exported="false" />
+        <activity
+            android:name=".ui.listagensi.DetailAgensi"
+            android:exported="false" />
+        <activity
             android:name=".ui.news.NewsActivity"
             android:exported="false" />
         <activity

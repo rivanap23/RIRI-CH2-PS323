@@ -1,6 +1,6 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Riri" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.Riri" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your dark theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/black</item>
@@ -8,7 +8,10 @@
         <item name="colorPrimaryContainer">@color/container</item>
         <item name="color">@color/primary</item>
         <item name="colorSurfaceVariant">@color/primary</item>
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowActionBar">@color/white</item>
         <item name="bottomAppBarStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">

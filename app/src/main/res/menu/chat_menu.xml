@@ -3,5 +3,5 @@
     <item
         android:id="@+id/item_home"
         android:enabled="false"
-        android:title="Urutkan" />
+        android:title="@string/urutkan" />
 </menu>

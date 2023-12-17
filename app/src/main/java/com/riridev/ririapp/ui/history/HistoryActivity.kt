@@ -36,8 +36,9 @@ class HistoryActivity : AppCompatActivity() {
         @StringRes
         val TAB_TITLES = intArrayOf(
             R.string.tab_verifikasi,
+            R.string.tab_ditolak,
             R.string.tab_diproses,
-            R.string.tab_selesai
+            R.string.tab_selesai,
         )
     }
 }

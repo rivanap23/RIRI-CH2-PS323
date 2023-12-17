@@ -24,6 +24,17 @@
             app:title="@string/edit_profile"
             app:titleTextAppearance="@style/ThemeOverlay.App.Title.TopAppBar" />
 
+
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/loadingIndicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:indeterminate="true"
+            android:layout_gravity="center"
+            app:indicatorColor="@color/primary"
+            app:trackColor="@color/container" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -91,7 +102,6 @@
             android:hint="@string/birth_place"
             android:inputType="text"
             android:maxLines="1"
-            android:textColor="@color/black"
             android:textSize="16sp"
             android:typeface="normal"/>
     </com.google.android.material.textfield.TextInputLayout>

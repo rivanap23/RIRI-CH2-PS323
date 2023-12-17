@@ -5,22 +5,20 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.riridev.ririapp.data.model.ImageCarouselItem
-import com.riridev.ririapp.databinding.HomeCarouselBinding
+import com.riridev.ririapp.data.model.CarouselItemModel
+import com.riridev.ririapp.databinding.CarouselItemBinding
 
-class HomeCarouselAdapter(): ListAdapter<ImageCarouselItem, HomeCarouselAdapter.HomeCarouselViewHolder>(DIFF_CALLBACK)  {
-    class HomeCarouselViewHolder(private val binding: HomeCarouselBinding):
+class HomeCarouselAdapter : ListAdapter<CarouselItemModel, HomeCarouselAdapter.HomeCarouselViewHolder>(DIFF_CALLBACK)  {
+    class HomeCarouselViewHolder(private val binding: CarouselItemBinding):
         RecyclerView.ViewHolder(binding.root)  {
-        fun bind(image: ImageCarouselItem) {
-            Glide.with(itemView)
-                .load(image.url)
-                .into(binding.carouselImageView)
+        fun bind(item: CarouselItemModel) {
+            binding.tvTitleCarousel.text = item.title
+            binding.tvCarouselDesc.text = item.description
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeCarouselViewHolder {
-        val binding = HomeCarouselBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        val binding = CarouselItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return HomeCarouselViewHolder(binding)
     }
 
@@ -31,17 +29,17 @@ class HomeCarouselAdapter(): ListAdapter<ImageCarouselItem, HomeCarouselAdapter.
 
     companion object {
         val DIFF_CALLBACK =
-            object : DiffUtil.ItemCallback<ImageCarouselItem>() {
+            object : DiffUtil.ItemCallback<CarouselItemModel>() {
                 override fun areItemsTheSame(
-                    oldItem: ImageCarouselItem,
-                    newItem: ImageCarouselItem,
+                    oldItem: CarouselItemModel,
+                    newItem: CarouselItemModel,
                 ): Boolean {
                     return oldItem == newItem
                 }
 
                 override fun areContentsTheSame(
-                    oldItem: ImageCarouselItem,
-                    newItem: ImageCarouselItem,
+                    oldItem: CarouselItemModel,
+                    newItem: CarouselItemModel,
                 ): Boolean {
                     return oldItem == newItem
                 }

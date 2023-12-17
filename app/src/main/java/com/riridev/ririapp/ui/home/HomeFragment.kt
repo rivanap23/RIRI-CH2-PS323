@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.google.android.material.carousel.CarouselLayoutManager
-import com.google.android.material.carousel.CarouselSnapHelper
-import com.riridev.ririapp.data.dummy.ImageDummy.Companion.imageList
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.PagerSnapHelper
+import androidx.recyclerview.widget.SnapHelper
+import com.riridev.ririapp.data.dummy.CarouselItemDummy.Companion.imageList
 import com.riridev.ririapp.databinding.FragmentHomeBinding
 import com.riridev.ririapp.ui.adapter.HomeCarouselAdapter
 import com.riridev.ririapp.ui.discuss.DiscussActivity
 import com.riridev.ririapp.ui.emergency.EmergencyActivity
 import com.riridev.ririapp.ui.history.HistoryActivity
+import com.riridev.ririapp.ui.listagensi.ListAgensi
 import com.riridev.ririapp.ui.news.NewsActivity
 import com.riridev.ririapp.ui.report.ReportActivity
 
@@ -36,11 +39,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun setupCarousel() {
-        binding?.homeLayout?.carouselRecyclerView?.layoutManager = CarouselLayoutManager()
         val carouselAdapter = HomeCarouselAdapter()
+        binding?.homeLayout?.carouselRecyclerView?.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+        binding?.homeLayout?.carouselRecyclerView?.itemAnimator = DefaultItemAnimator()
         binding?.homeLayout?.carouselRecyclerView?.adapter = carouselAdapter
         carouselAdapter.submitList(imageList)
-        val snapHelper = CarouselSnapHelper()
+        val snapHelper: SnapHelper = PagerSnapHelper()
         snapHelper.attachToRecyclerView(binding?.homeLayout?.carouselRecyclerView)
     }
 
@@ -67,6 +71,11 @@ class HomeFragment : Fragment() {
 
         binding?.homeLayout?.btnNews?.setOnClickListener {
             val intent = Intent(requireContext(), NewsActivity::class.java)
+            startActivity(intent)
+        }
+
+        binding?.homeLayout?.btnInstansi?.setOnClickListener {
+            val intent = Intent(requireContext(), ListAgensi::class.java)
             startActivity(intent)
         }
     }

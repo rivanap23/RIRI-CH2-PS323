@@ -24,7 +24,7 @@ class CustomButton : MaterialButton {
         state = if(isEnabled) DONE else NORMAL
     }
 
-    var state: Int
+    private var state: Int
         get() = mState
         set(state) {
             when (state) {
