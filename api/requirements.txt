@@ -1,0 +1,5 @@
+firebase_admin==6.3.0
+Flask==3.0.0
+keras==2.14.0
+tensorflow==2.14.0
+tensorflow_intel==2.14.0
