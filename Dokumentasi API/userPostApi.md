@@ -84,6 +84,30 @@ Response Body Success :
 ```
 
 
+## Remove Like on Post
+
+Endpoint : DELETE /discussions/:postId/unlike
+
+Path Variables
+- postId
+
+Request Body :
+
+```json
+{
+    "username": "user username"
+}
+```
+
+Response Body Success :
+
+```json
+{
+    "message": "Berhasil menghapus like.",
+}
+```
+
+
 ## Get User Post Detail
 
 Endpoint : GET /discussions/:postId
