@@ -1,40 +1,57 @@
-import json
-from flask import Flask, request, jsonify, render_template
+from flask import Flask, request, jsonify
 import tensorflow as tf
-from keras.preprocessing.sequence import pad_sequences
+from keras.models import load_model
+import re
+import json
+import firebase_admin
+from firebase_admin import credentials, firestore
 from keras.preprocessing.text import Tokenizer
-import pandas as pd
-import numpy as np
+from keras.preprocessing.sequence import pad_sequences
+
+cred = credentials.Certificate('../json_things/firestoreKey.json')
+firebase_admin.initialize_app(cred)
+
+# Access the Firestore database
+db = firestore.client()
 
 app = Flask(__name__)
 
-model = tf.keras.models.load_model('model_h5/fake_detection.h5')
+@app.route('/predict-fake', methods=['POST'])
+def predict_fake():
+    max_len = 1745
+    trunc_type = 'post'
+    padding_type = 'post'
 
-with open('json_things/tokenizer_dict.json') as file:
-    data = json.load(file)
-    print(data)
+    model = load_model('../model_h5/fake_detection.h5')
 
-tokenizer = Tokenizer(num_words=1795, oov_token='')
-tokenizer.word_index = data
+    with open('../json_things/tokenizer_dict.json') as file:
+        data = json.load(file)
 
+    tokenizer = Tokenizer(num_words=max_len, oov_token='')
+    tokenizer.word_index = data
 
-@app.route('/')
-def home():
-    return render_template('index.html')
+    data_input = request.get_json(force=True)
+    input_text = data_input['text']
 
+    sequences = tokenizer.texts_to_sequences([input_text])
+    padded = pad_sequences(sequences, maxlen=16, padding=padding_type, truncating=trunc_type)
 
-@app.route('/predict', methods=['POST'])
-def predict():
-    if request.method == 'POST':
-        text = request.form['text']
-        sequence = tokenizer.texts_to_sequences([text])
-        padded_sequence = pad_sequences(sequence, maxlen=16, padding='post', truncating='post')
-        prediction = model.predict(padded_sequence)
+    predictions = model.predict(padded)
+    binary_predictions = (predictions > 0.5).astype(int)
 
-        # Assuming a binary classification problem
-        result = "Fake" if prediction[0][0] >= 0.5 else "Real"
+    if binary_predictions == 1:
+        status = 'Laporan terdeteksi palsu'
+    else:
+        status = 'Laporan diterima'
 
-        return render_template('result.html', prediction=result)
+    response = {
+        'prediction': int(binary_predictions[0]),
+        'status': str(status)
+    }
+
+    return jsonify(response)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
+
