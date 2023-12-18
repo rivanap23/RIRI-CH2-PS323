@@ -1,0 +1,4 @@
+keras==2.14.0
+protobuf==4.25.1
+Requests==2.31.0
+tensorflow==2.14.0
