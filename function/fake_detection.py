@@ -1,6 +1,6 @@
 import tensorflow as tf
 import json
-from flask import requests
+import requests
 from google.cloud import storage
 from keras.models import load_model
 from keras.preprocessing.text import Tokenizer
