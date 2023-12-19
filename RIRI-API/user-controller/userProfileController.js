@@ -5,8 +5,8 @@ const {format} = require('util');
 const admin = require('firebase-admin');
 
 const storage = require('../storage-config/storage');
-const bucket = storage.bucket('riri-user-profile-image');
-const db = admin.firestore();
+const bucket = storage.bucket('Bucket Name');
+const db = require('../db-cofig/db');
 
 // Menambahkan atau mengubah Profil Image
 async function updateUserProfileImg(req, res) {
@@ -14,14 +14,14 @@ async function updateUserProfileImg(req, res) {
     const userId = req.params.userId;
 
     if (!userId) {
-      return res.status(400).send({message: 'User ID is missing.'});
+      return res.status(400).send({message: 'User ID tidak ditemukan'});
     }
 
     const userDocRef = db.collection('users').doc(userId);
     const userDoc = await userDocRef.get();
 
     if (!userDoc.exists) {
-      return res.status(404).send({message: 'User not found in the database.'});
+      return res.status(404).send({message: 'User tidak ditemukan di database'});
     }
 
     const userData = userDoc.data();
@@ -30,7 +30,7 @@ async function updateUserProfileImg(req, res) {
     await processFile(req, res);
 
     if (!req.file) {
-      return res.status(400).send({message: 'Please upload a file!'});
+      return res.status(400).send({message: 'Gambar diperlukan!'});
     }
 
     const imageName = `${username}-profile.png`;
@@ -57,7 +57,7 @@ async function updateUserProfileImg(req, res) {
         });
       } catch (err) {
         return res.status(500).send({
-          message: `Uploaded the file successfully: ${imageName}, but public access is denied!`,
+          message: `Berhasil mengunggah gambar: ${imageName}, namun akses publik ditolak!`,
           url: publicUrl,
         });
       }
@@ -71,7 +71,7 @@ async function updateUserProfileImg(req, res) {
     blobStream.end(req.file.buffer);
   } catch (err) {
     res.status(500).send({
-      message: `Could not upload the file. ${err}`,
+      message: `Gagal mengunggah gambar. ${err}`,
     });
   }
 }
@@ -82,14 +82,14 @@ async function deleteUserProfileImg(req, res) {
     const userId = req.params.userId;
 
     if (!userId) {
-      return res.status(400).send({message: 'User ID is missing.'});
+      return res.status(400).send({message: 'User ID tidak ditemukan.'});
     }
 
     const userDocRef = db.collection('users').doc(userId);
     const userDoc = await userDocRef.get();
 
     if (!userDoc.exists) {
-      return res.status(404).send({message: 'User not found in the database.'});
+      return res.status(404).send({message: 'User tidak ditemukan di database.'});
     }
 
     const userData = userDoc.data();
@@ -111,7 +111,7 @@ async function deleteUserProfileImg(req, res) {
     res.status(200).json({message: 'Profile image berhasil dihapus'});
   } catch (err) {
     res.status(500).send({
-      message: `Could not delete the profile image. ${err}`,
+      message: `Gagal menghapus profile image. ${err}`,
     });
   }
 };
@@ -131,7 +131,7 @@ async function updateUserInfo(req, res) {
     const userDoc = await userDocRef.get();
 
     if (!userDoc.exists) {
-      return res.status(404).send({message: 'User not found in the database.'});
+      return res.status(404).send({message: 'User tidak ditemukan di database.'});
     }
 
     if (newEmail) {
@@ -189,7 +189,7 @@ async function updateUserInfo(req, res) {
     res.status(200).json({message: 'Informasi pengguna berhasil diperbaharui'});
   } catch (err) {
     res.status(500).send({
-      message: `Could not update user information. ${err}`,
+      message: `Gagal memperbarui informasi pengguna. ${err}`,
     });
   }
 };
@@ -200,14 +200,14 @@ async function getUserDetailById(req, res) {
     const userId = req.params.userId;
 
     if (!userId) {
-      return res.status(400).send({message: 'User ID is missing.'});
+      return res.status(400).send({message: 'User ID tidak ditemukan.'});
     }
 
     const userDocRef = db.collection('users').doc(userId);
     const userDoc = await userDocRef.get();
 
     if (!userDoc.exists) {
-      return res.status(404).send({message: 'User not found in the database.'});
+      return res.status(404).send({message: 'User tidak ditemukan di database.'});
     }
 
     const userData = userDoc.data();
@@ -222,7 +222,7 @@ async function getUserDetailById(req, res) {
     });
   } catch (err) {
     res.status(500).send({
-      message: `Could not retrieve user information. ${err}`,
+      message: `Gagal mendapatkan informasi user. ${err}`,
     });
   }
 };

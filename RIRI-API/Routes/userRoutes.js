@@ -92,6 +92,7 @@ app.post('/:userId/discussions/create-discussion', async (req, res) => {
   }
 });
 
+// Memberi komentar pada postingan
 app.post('/discussions/:postId/comment', async (req, res) => {
   try {
     await userPostController.addComment(req, res);
@@ -101,6 +102,7 @@ app.post('/discussions/:postId/comment', async (req, res) => {
   }
 });
 
+// Memberi like pada postingan
 app.post('/discussions/:postId/like', async (req, res) => {
   try {
     await userPostController.addLike(req, res);
@@ -110,6 +112,17 @@ app.post('/discussions/:postId/like', async (req, res) => {
   }
 });
 
+// Menghapus like pada postingan
+app.delete('/discussions/:postId/unlike', async (req, res) => {
+  try {
+    await userPostController.removeLike(req, res);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+});
+
+// Mengambil detail postingan forum diskusi berdasarkan id postingan
 app.get('/discussions/:postId', async (req, res) => {
   try {
     await userPostController.getPostDetail(req, res);
@@ -119,6 +132,7 @@ app.get('/discussions/:postId', async (req, res) => {
   }
 });
 
+// Mengambil seluruh postingan diskusi yang ada di forum diskusi
 app.get('/discussions', async (req, res) => {
   try {
     await userPostController.getAllPosts(req, res);
@@ -139,6 +153,16 @@ app.post('/:userId/report/create-report', async (req, res) => {
   }
 });
 
+// Mendapatkan report dengan status/verifikasi
+app.get('/:userId/report/report-history/terverifikasi', async (req, res) => {
+  try {
+    await userReportController.getVerifiedReports(req, res);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+});
+
 // Mendapatkan report dengan status/diproses
 app.get('/:userId/report/report-history/diproses', async (req, res) => {
   try {
@@ -149,5 +173,24 @@ app.get('/:userId/report/report-history/diproses', async (req, res) => {
   }
 });
 
+// Mendapatkan report dengan status/ditolak
+app.get('/:userId/report/report-history/ditolak', async (req, res) => {
+  try {
+    await userReportController.getRejectedReports(req, res);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+});
+
+// Mendapatkan report dengan status/diterima
+app.get('/:userId/report/report-history/selesai', async (req, res) => {
+  try {
+    await userReportController.getFinishedReports(req, res);
+  } catch (error) {
+    console.error(error.message);
+    res.status(500).json({error: 'Internal Server Error'});
+  }
+});
 
 module.exports = app;

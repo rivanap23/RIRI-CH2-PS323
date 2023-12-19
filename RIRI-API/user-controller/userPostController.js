@@ -3,7 +3,7 @@
 const admin = require('firebase-admin');
 const storage = require('../storage-config/storage');
 const bucket = storage.bucket('riri-discussion-file');
-const db = admin.firestore();
+const db = require('../db-cofig/db');
 
 const processFileMiddleware = require('../middleware/upload');
 
@@ -13,14 +13,14 @@ async function createPost(req, res) {
     const userId = req.params.userId;
 
     if (!userId) {
-      return res.status(400).send({message: 'User ID is missing.'});
+      return res.status(400).send({message: 'User ID tidak ditemukan.'});
     }
 
     const userDocRef = db.collection('users').doc(userId);
     const userDoc = await userDocRef.get();
 
     if (!userDoc.exists) {
-      return res.status(404).send({message: 'User not found in the database.'});
+      return res.status(404).send({message: 'User tidak ditemukan di database.'});
     }
 
     const userData = userDoc.data();
@@ -31,11 +31,11 @@ async function createPost(req, res) {
     const {title, content} = req.body;
 
     if (!title || !content) {
-      return res.status(400).send({message: 'Title and content are required.'});
+      return res.status(400).send({message: 'Judul dan konten perlu diisi!'});
     }
 
     if (!req.file) {
-      return res.status(400).send({message: 'Image is required.'});
+      return res.status(400).send({message: 'Gambar perlu diisi!'});
     }
 
     const timestamp = new Date().getTime();
@@ -80,7 +80,7 @@ async function createPost(req, res) {
         });
       } catch (err) {
         res.status(500).send({
-          message: `Uploaded the file successfully, but an error occurred while updating the database. ${err}`,
+          message: `Terjadi error di database ${err}`,
         });
       }
     });
@@ -88,7 +88,7 @@ async function createPost(req, res) {
     blobStream.end(req.file.buffer);
   } catch (err) {
     res.status(500).send({
-      message: `Could not create the post. ${err}`,
+      message: `Gagal menambahkan postingan. ${err}`,
     });
   }
 };
@@ -100,13 +100,13 @@ async function addComment(req, res) {
     const {username, comment} = req.body;
 
     if (!postId || !username || !comment) {
-      return res.status(400).send({message: 'postId, username, and comment are required.'});
+      return res.status(400).send({message: 'Gagal menambahkan komentar pada postingan'});
     }
 
     const usersQuerySnapshot = await db.collection('users').where('username', '==', username).get();
 
     if (usersQuerySnapshot.empty) {
-      return res.status(404).send({message: 'User not found.'});
+      return res.status(404).send({message: 'User tidak ditemukan.'});
     }
 
     const userData = usersQuerySnapshot.docs[0].data();
@@ -116,7 +116,7 @@ async function addComment(req, res) {
     const postDoc = await postDocRef.get();
 
     if (!postDoc.exists) {
-      return res.status(404).send({message: 'Post not found.'});
+      return res.status(404).send({message: 'Postingan tidak ditemukan.'});
     }
 
     const existingComments = postDoc.data().comments || [];
@@ -136,7 +136,7 @@ async function addComment(req, res) {
       comment: commentData,
     });
   } catch (err) {
-    res.status(500).send({message: `Could not add comment. ${err}`});
+    res.status(500).send({message: `Gagal menambahkan komentar ${err}`});
   }
 };
 
@@ -148,13 +148,13 @@ async function addLike(req, res) {
     const {username} = req.body;
 
     if (!postId || !username) {
-      return res.status(400).send({message: 'postId and username are required.'});
+      return res.status(400).send({message: 'Postingan tidak ditemukan'});
     }
 
     const userQuerySnapshot = await db.collection('users').where('username', '==', username).get();
 
     if (userQuerySnapshot.empty) {
-      return res.status(404).send({message: 'User not found.'});
+      return res.status(404).send({message: 'User tidak ditemukan'});
     }
 
     const postDocRef = db.collection('userDiscussion').doc(postId);
@@ -163,9 +163,37 @@ async function addLike(req, res) {
       likes: admin.firestore.FieldValue.arrayUnion(username),
     });
 
-    res.status(200).json({message: 'Berhasil menambahkan like.'});
+    res.status(200).json({message: 'Like'});
   } catch (err) {
-    res.status(500).send({message: `Could not add like. ${err}`});
+    res.status(500).send({message: `Gagal menambahkan like ${err}`});
+  }
+};
+
+// Menghilangkan like dari postingan
+async function removeLike(req, res) {
+  try {
+    const postId = req.params.postId;
+    const {username} = req.body;
+
+    if (!postId || !username) {
+      return res.status(400).send({message: 'Isi semua ketentuan!'});
+    }
+
+    const userQuerySnapshot = await db.collection('users').where('username', '==', username).get();
+
+    if (userQuerySnapshot.empty) {
+      return res.status(404).send({message: 'User tidak ditemukan'});
+    }
+
+    const postDocRef = db.collection('userDiscussion').doc(postId);
+
+    await postDocRef.update({
+      likes: admin.firestore.FieldValue.arrayRemove(username),
+    });
+
+    res.status(200).json({message: 'Unlike'});
+  } catch (err) {
+    res.status(500).send({message: `Could not remove like. ${err}`});
   }
 };
 
@@ -175,14 +203,14 @@ async function getPostDetail(req, res) {
     const postId = req.params.postId;
 
     if (!postId) {
-      return res.status(400).send({message: 'postId is required.'});
+      return res.status(400).send({message: 'Postingan tidak ditemukan!'});
     }
 
     const postDocRef = db.collection('userDiscussion').doc(postId);
     const postDoc = await postDocRef.get();
 
     if (!postDoc.exists) {
-      return res.status(404).send({message: 'Post not found.'});
+      return res.status(404).send({message: 'Postingan tidak ditemukan'});
     }
 
     const postData = postDoc.data();
@@ -192,7 +220,7 @@ async function getPostDetail(req, res) {
     const userQuerySnapshot = await db.collection('users').where('username', '==', username).get();
 
     if (userQuerySnapshot.empty) {
-      return res.status(404).send({message: 'User not found for the post.'});
+      return res.status(404).send({message: 'User tidak ditemukan pada postingan.'});
     }
 
     const userData = userQuerySnapshot.docs[0].data();
@@ -211,7 +239,7 @@ async function getPostDetail(req, res) {
 
     res.status(200).json(postDetail);
   } catch (err) {
-    res.status(500).send({message: `Could not retrieve post detail. ${err}`});
+    res.status(500).send({message: `Gagal mendapatkan detail postingan ${err}`});
   }
 };
 
@@ -229,7 +257,7 @@ async function getAllPosts(req, res) {
       const userQuerySnapshot = await db.collection('users').where('username', '==', username).get();
 
       if (userQuerySnapshot.empty) {
-        console.error(`User not found for post with username: ${username}`);
+        console.error(`User tidak ditemukan pada postingan: ${username}`);
         return;
       }
 
@@ -253,7 +281,7 @@ async function getAllPosts(req, res) {
     res.status(200).json(allPosts);
   } catch (err) {
     console.error(err);
-    res.status(500).send({message: `Could not retrieve posts. ${err}`});
+    res.status(500).send({message: `Gagal mendapatkan postingan. ${err}`});
   }
 };
 
@@ -261,6 +289,7 @@ module.exports = {
   createPost,
   addComment,
   addLike,
+  removeLike,
   getPostDetail,
   getAllPosts,
 };

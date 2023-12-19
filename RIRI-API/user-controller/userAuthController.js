@@ -6,10 +6,12 @@ const admin = require('firebase-admin');
 
 const db = require('../db-cofig/db');
 
-// Registrasi User
 function generateAccessToken(userId) {
   return jwt.sign({userId}, 'accessTokenSecret', {expiresIn: '3d'});
 };
+
+// Registrasi User
+const MIN_PASSWORD_LENGTH = 8;
 
 async function registerUser(req, res) {
   try {
@@ -23,6 +25,10 @@ async function registerUser(req, res) {
 
     if (password !== password2) {
       return res.status(400).json({message: 'Password harus sama'});
+    }
+
+    if (password.length < MIN_PASSWORD_LENGTH) {
+      return res.status(400).json({message: `Password harus memiliki setidaknya ${MIN_PASSWORD_LENGTH} karakter`});
     }
 
     const usernameExists = await db.collection('users').where('username', '==', username).get();
