@@ -10,10 +10,10 @@ Request Body :
 
 ```json
 {
-    "email": "rivanakbar230702@gmail.com",
-    "username": "escobar_12",
+    "email": "user email",
+    "username": "user username",
     "placeOfBirth": "City",
-    "dateOfBirth": "23/07/20002",
+    "dateOfBirth": "DD/MM/YYYY",
     "password": "password123",
     "password2": "password123"
 }
