@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
 import com.riridev.ririapp.data.local.pref.UserPreferences
-import com.riridev.ririapp.data.local.room.DiscussionDatabase
 import com.riridev.ririapp.data.model.DiscussionModel
 import com.riridev.ririapp.data.remote.response.CreateCommentResponse
 import com.riridev.ririapp.data.remote.response.CreateDiscussionResponse
@@ -130,8 +129,7 @@ class DiscussionRepository private constructor(
 
         fun getInstance(
             userPreference: UserPreferences,
-            apiService: ApiService,
-            database: DiscussionDatabase
+            apiService: ApiService
         ): DiscussionRepository =
             instance ?: synchronized(this) {
                 instance ?: DiscussionRepository(userPreference, apiService)
