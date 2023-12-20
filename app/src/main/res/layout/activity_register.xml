@@ -6,14 +6,17 @@
 
     <ImageView
         android:id="@+id/iv_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="40dp"
         android:contentDescription="@string/logo_company"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/logo_name" />
+        android:scaleX="3"
+        android:scaleY="3"
+        android:scaleType="fitCenter"
+        app:srcCompat="@drawable/logo_font" />
 
 
     <TextView
