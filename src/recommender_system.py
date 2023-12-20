@@ -64,14 +64,14 @@ class ContentBasedModel(tf.keras.Model):
                                                            embeddings_regularizer=keras.regularizers.l2(reg_rate))
         self.flatten = tf.keras.layers.Flatten()
         self.dropout = tf.keras.layers.Dropout(dropout_rate)
-        self.batch_norm = tf.keras.layers.BatchNormalization()  # Add Batch Normalization
+        self.batch_norm = tf.keras.layers.BatchNormalization()
         self.dot_product = tf.keras.layers.Dot(axes=1)
 
     def call(self, inputs):
         user_embedding = self.flatten(self.user_embedding(inputs['user']))
         content_embedding = self.flatten(self.content_embedding(inputs['content']))
-        user_embedding = self.dropout(self.batch_norm(user_embedding))  # Apply Batch Normalization
-        content_embedding = self.dropout(self.batch_norm(content_embedding))  # Apply Batch Normalization
+        user_embedding = self.dropout(self.batch_norm(user_embedding))
+        content_embedding = self.dropout(self.batch_norm(content_embedding))
         dot_product = self.dot_product([user_embedding, content_embedding])
         return dot_product
 
