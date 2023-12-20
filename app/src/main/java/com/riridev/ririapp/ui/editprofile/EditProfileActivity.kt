@@ -30,12 +30,12 @@ class EditProfileActivity : AppCompatActivity() {
         val dateOfBirth = intent.getStringExtra(DATE).toString()
 
         binding.etUsernameEdit.setText(username)
-        binding.etBirthPlace.setText(dateOfBirth)
+        binding.etBirthDateEdit.setText(dateOfBirth)
         binding.etEmailEdit.setText(email)
         binding.etBirthPlace.setText(placeOfBirth)
         binding.etUsernameEdit.isEnabled = false
         binding.etBirthPlace.isEnabled = false
-        binding.etBirthPlace.isEnabled = false
+        binding.etBirthDateEdit.isEnabled = false
 
         binding.btnRegister.setOnClickListener {
             val newEmail = binding.etEmailEdit.text.toString()

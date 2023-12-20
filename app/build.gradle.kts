@@ -19,7 +19,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        buildConfigField("String", "BASE_URL", "\"https://riri-api-testing.et.r.appspot.com/\"")
+        buildConfigField("String", "BASE_URL", "\"https://riri-api-jvqovk35xq-uc.a.run.app/\"")
+        buildConfigField("String", "ML_URL", "\"https://riri-ml-fake-detection-jvqovk35xq-et.a.run.app/\"")
     }
 
     buildTypes {

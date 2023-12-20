@@ -8,6 +8,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class ApiMlConfig {
     companion object {
+        private const val ML_URL = BuildConfig.ML_URL
         fun getApiMlService(): ApiMlService {
             val loggingInterceptor =
                 if (BuildConfig.DEBUG) {
@@ -19,7 +20,7 @@ class ApiMlConfig {
                 .addInterceptor(loggingInterceptor)
                 .build()
             val retrofit = Retrofit.Builder()
-                .baseUrl("https://riri-ml-fake-detection-jvqovk35xq-et.a.run.app/")
+                .baseUrl(ML_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client)
                 .build()
