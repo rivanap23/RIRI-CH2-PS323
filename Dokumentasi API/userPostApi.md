@@ -60,7 +60,7 @@ Response Body Success :
 ```
 
 
-## Add Like on Post
+## Toggle Like/Unlike Post
 
 Endpoint : POST /discussions/:postId/like
 
@@ -80,30 +80,6 @@ Response Body Success :
 ```json
 {
     "message": "Berhasil menambahkan like.",
-}
-```
-
-
-## Remove Like on Post
-
-Endpoint : DELETE /discussions/:postId/unlike
-
-Path Variables
-- postId
-
-Request Body :
-
-```json
-{
-    "username": "user username"
-}
-```
-
-Response Body Success :
-
-```json
-{
-    "message": "Berhasil menghapus like.",
 }
 ```
 
