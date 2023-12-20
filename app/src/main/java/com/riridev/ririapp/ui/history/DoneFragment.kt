@@ -66,9 +66,7 @@ class DoneFragment : Fragment() {
 
     private fun setupRecyclerView(history: List<ProcessedReportsItem>) {
         binding?.rvHistory?.layoutManager = LinearLayoutManager(requireActivity())
-        val adapter = HistoryAdapter {
-            Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
-        }
+        val adapter = HistoryAdapter {}
         adapter.submitList(history)
         binding?.rvHistory?.adapter = adapter
     }

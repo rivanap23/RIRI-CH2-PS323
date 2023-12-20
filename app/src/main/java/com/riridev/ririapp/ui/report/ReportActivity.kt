@@ -3,6 +3,8 @@ package com.riridev.ririapp.ui.report
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.Toast
 import androidx.activity.result.PickVisualMediaRequest
@@ -44,8 +46,28 @@ class ReportActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         setupAction()
+        checkTitleWords()
     }
 
+    private fun checkTitleWords(){
+        binding.activityReport.etTitle.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                val text = s.toString().trim().split("\\s+".toRegex())
+                if (text.size == 3) {
+                    binding.activityReport.tilTitleReport.isErrorEnabled = false
+                } else {
+                    binding.activityReport.tilTitleReport.error = "Judul laporan minimal 3 kata"
+                    binding.activityReport.btnSend.isEnabled = false
+                }
+            }
+        })
+    }
     private fun observeFakeDetection(){
         reportViewModel.fakeDetection.observe(this) { result ->
             when (result) {
@@ -85,7 +107,6 @@ class ReportActivity : AppCompatActivity() {
                     showLoading(false)
                     succesDialog.resultState = true
                     succesDialog.show(supportFragmentManager, "notFake")
-                    Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
                 }
 
                 is Result.Error -> {

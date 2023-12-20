@@ -2,6 +2,9 @@ package com.riridev.ririapp.ui.register
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -25,6 +28,7 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setupAction()
+        checkInput()
         registerViewModel.register.observe(this){ result ->
             when (result) {
                 is Result.Loading -> {
@@ -74,6 +78,99 @@ class RegisterActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+    }
+
+    private fun checkInput(){
+        checkEmail()
+        checkPassword()
+    }
+
+    private fun checkEmail(){
+        binding.layoutRegis.etEmailRegister.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    //do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    //do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    val email = s.toString().trim()
+                    val checkEmail = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                    if (checkEmail){
+                        binding.layoutRegis.tilEmail.isErrorEnabled = false
+                    } else {
+                        binding.layoutRegis.tilEmail.isErrorEnabled = true
+                        binding.layoutRegis.tilEmail.error = "Format Email Salah"
+                    }
+                }
+            }
+        )
+    }
+
+    private fun checkPassword(){
+        binding.layoutRegis.etPassword.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    //do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    //do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    val password = s.toString().trim()
+                    if (password.length < 8){
+                        binding.layoutRegis.passwordInputLayout.isErrorEnabled = true
+                        binding.layoutRegis.passwordInputLayout.error = "Kata Sandi kurang dari delapan karakter"
+                    } else {
+                        binding.layoutRegis.passwordInputLayout.isErrorEnabled = false
+                    }
+                }
+
+            }
+        )
+
+        binding.layoutRegis.etRepassword.addTextChangedListener(
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                    //do nothing
+                }
+
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                    //do nothing
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    val pass = binding.layoutRegis.etPassword.text.toString().trim()
+                    val password = s.toString().trim()
+                    if (password == pass){
+                        binding.layoutRegis.passwordInputLayout2.isErrorEnabled = false
+                    } else {
+                        binding.layoutRegis.passwordInputLayout2.isErrorEnabled = true
+                        binding.layoutRegis.passwordInputLayout2.error = "Kata Sandi tidak sama"
+                    }
+                }
+            }
+        )
     }
 
     private fun register() {

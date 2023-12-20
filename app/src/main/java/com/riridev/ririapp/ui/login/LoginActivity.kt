@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Patterns
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -107,12 +108,20 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    setMyButtonEnable()
+                    val email = s.toString().trim()
+                    val checkEmail = Patterns.EMAIL_ADDRESS.matcher(email).matches()
+                    if (checkEmail){
+                        binding.activityLogin.tilEmail.isErrorEnabled = false
+                        setMyButtonEnable()
+                    } else {
+                        binding.activityLogin.tilEmail.isErrorEnabled = true
+                        binding.activityLogin.tilEmail.error = "Format Email Salah"
+                    }
                 }
             }
         )
 
-        binding.activityLogin.etEmailUsername.addTextChangedListener(
+        binding.activityLogin.etPassword.addTextChangedListener(
             object : TextWatcher {
                 override fun beforeTextChanged(
                     s: CharSequence?,
@@ -128,7 +137,14 @@ class LoginActivity : AppCompatActivity() {
                 }
 
                 override fun afterTextChanged(s: Editable?) {
-                    setMyButtonEnable()
+                    val password = s.toString().trim()
+                    if (password.length < 8){
+                        binding.activityLogin.passwordInputLayout.isErrorEnabled = true
+                        binding.activityLogin.passwordInputLayout.error = "Kata Sandi kurang dari delapan karakter"
+                    } else {
+                        binding.activityLogin.passwordInputLayout.isErrorEnabled = false
+                        setMyButtonEnable()
+                    }
                 }
 
             }
@@ -145,8 +161,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun setMyButtonEnable() {
-        val email = binding.activityLogin.etEmailUsername.text.toString()
-        val password = binding.activityLogin.etPassword.text.toString()
-        binding.activityLogin.btnLogin.isEnabled = ((email != null) && (password != null))
+        val email = binding.activityLogin.etEmailUsername.text.toString().trim()
+        val password = binding.activityLogin.etPassword.text.toString().trim()
+        binding.activityLogin.btnLogin.isEnabled = ((email.isNotEmpty()) && (password.isNotEmpty()))
     }
 }

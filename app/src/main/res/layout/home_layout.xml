@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -34,15 +33,14 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_report"
         style="?attr/materialIconButtonFilledTonalStyle"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        android:elevation="4dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:contentDescription="@string/report"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/primary"
+        android:contentDescription="@string/report"
+        android:elevation="4dp"
         app:icon="@drawable/outline_insert_drive_file_24"
         app:iconGravity="top"
         app:iconSize="30dp"
@@ -50,7 +48,8 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_news"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/carousel_recycler_view" />
+        app:layout_constraintTop_toBottomOf="@+id/carousel_recycler_view"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
 
     <TextView
         android:id="@+id/tv_report"
@@ -70,20 +69,20 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_news"
         style="?attr/materialIconButtonFilledTonalStyle"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        android:elevation="4dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="25dp"
-        android:contentDescription="@string/news"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/primary"
+        android:contentDescription="@string/news"
+        android:elevation="4dp"
         app:icon="@drawable/baseline_newspaper_24"
         app:iconGravity="top"
         app:iconSize="30dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/btn_review"
         app:layout_constraintStart_toEndOf="@+id/btn_report"
-        app:layout_constraintTop_toTopOf="@+id/btn_report" />
+        app:layout_constraintTop_toTopOf="@+id/btn_report"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
 
     <TextView
         android:layout_width="60dp"
@@ -101,20 +100,20 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_review"
         style="?attr/materialIconButtonFilledTonalStyle"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        android:elevation="4dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/primary"
         android:contentDescription="@string/rating"
+        android:elevation="4dp"
         app:icon="@drawable/baseline_star_outline_24"
         app:iconGravity="top"
         app:iconSize="30dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/btn_instansi"
         app:layout_constraintStart_toEndOf="@+id/btn_news"
-        app:layout_constraintTop_toTopOf="@+id/btn_news" />
+        app:layout_constraintTop_toTopOf="@+id/btn_news"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
 
     <TextView
         android:layout_width="60dp"
@@ -132,20 +131,20 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_instansi"
         style="?attr/materialIconButtonFilledTonalStyle"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        android:elevation="4dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="30dp"
-        android:contentDescription="@string/instansi"
+        android:layout_marginEnd="25dp"
         android:backgroundTint="@color/primary"
+        android:contentDescription="@string/instansi"
+        android:elevation="4dp"
         app:icon="@drawable/outline_policy_24"
         app:iconGravity="top"
         app:iconSize="30dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_review"
-        app:layout_constraintTop_toTopOf="@+id/btn_review" />
+        app:layout_constraintTop_toTopOf="@+id/btn_review"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
 
     <TextView
         android:layout_width="60dp"
@@ -166,15 +165,14 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_forum"
         style="?attr/materialIconButtonFilledTonalStyle"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        android:elevation="4dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="25dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:contentDescription="@string/forum"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/primary"
+        android:contentDescription="@string/forum"
+        android:elevation="4dp"
         app:icon="@drawable/outline_groups_24"
         app:iconGravity="top"
         app:iconSize="30dp"
@@ -182,7 +180,8 @@
         app:layout_constraintEnd_toStartOf="@+id/btn_history"
         app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_report" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_report"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
 
     <TextView
         android:layout_width="60dp"
@@ -201,20 +200,20 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_history"
         style="?attr/materialIconButtonFilledTonalStyle"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        android:elevation="4dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/primary"
         android:contentDescription="@string/history"
+        android:elevation="4dp"
         app:icon="@drawable/baseline_history_24"
         app:iconGravity="top"
         app:iconSize="30dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/btn_statistic"
         app:layout_constraintStart_toEndOf="@+id/btn_forum"
-        app:layout_constraintTop_toTopOf="@+id/btn_forum" />
+        app:layout_constraintTop_toTopOf="@+id/btn_forum"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
 
     <TextView
         android:layout_width="60dp"
@@ -232,20 +231,20 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_statistic"
         style="?attr/materialIconButtonFilledTonalStyle"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        android:elevation="4dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="25dp"
+        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/primary"
         android:contentDescription="@string/statistic_report"
+        android:elevation="4dp"
         app:icon="@drawable/outline_analytics_24"
         app:iconGravity="top"
         app:iconSize="30dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/btn_emergency"
         app:layout_constraintStart_toEndOf="@+id/btn_history"
-        app:layout_constraintTop_toTopOf="@+id/btn_history" />
+        app:layout_constraintTop_toTopOf="@+id/btn_history"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
 
     <TextView
         android:layout_width="60dp"
@@ -263,20 +262,20 @@
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btn_emergency"
         style="?attr/materialIconButtonFilledTonalStyle"
-        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large"
-        android:elevation="4dp"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginEnd="30dp"
+        android:layout_marginEnd="25dp"
         android:backgroundTint="@color/primary"
         android:contentDescription="@string/emergency_contact"
+        android:elevation="4dp"
         app:icon="@drawable/outline_emergency_24"
         app:iconGravity="top"
         app:iconSize="30dp"
         app:iconTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/btn_statistic"
-        app:layout_constraintTop_toTopOf="@+id/btn_statistic" />
+        app:layout_constraintTop_toTopOf="@+id/btn_statistic"
+        app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Large" />
 
     <TextView
         android:layout_width="60dp"

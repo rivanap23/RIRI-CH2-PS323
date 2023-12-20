@@ -56,9 +56,10 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_tagline">
+        app:layout_constraintTop_toBottomOf="@+id/tv_tagline"
+        app:endIconMode="clear_text">
 
-        <com.riridev.ririapp.ui.custom.EditTextField
+        <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_email_register"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,7 +80,8 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/til_email">
+        app:layout_constraintTop_toBottomOf="@+id/til_email"
+        app:endIconMode="clear_text">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_username_register"
@@ -177,7 +179,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout"
-        app:passwordToggleEnabled="true">
+        app:passwordToggleEnabled="true"
+        app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/et_repassword"
@@ -197,7 +200,7 @@
         android:layout_width="0dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="20dp"
         android:fontFamily="@font/poppins_semibold"
         android:text="@string/register"
