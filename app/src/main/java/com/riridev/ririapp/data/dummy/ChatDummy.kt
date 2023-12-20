@@ -7,27 +7,45 @@ class ChatDummy {
         val listChat = listOf(
             Chat(
                 1,
-                "Boy Brahmanda",
-                "Jangan lupa makan yaa",
-                "12/10/2023"
+                "Susan",
+                "Saya tidak dapat mengakses akun saya. Setiap kali saya mencoba masuk, saya mendapatkan pesan kesalahan.",
+                "10/10/2023"
             ),
             Chat(
                 2,
-                "Boy Brahmanda",
-                "Jangan lupa makan yaa",
-                "12/10/2023"
+                "Firly",
+                "Saya mencoba mengunggah gambar, tetapi aplikasi keluar dengan sendirinya tanpa memberikan pesan kesalahan.",
+                "20/10/2023"
             ),
             Chat(
                 3,
-                "Boy Brahmanda",
-                "Jangan lupa makan yaa",
+                "Wawan",
+                "Ya, saya punya tangkapan layar. Bagaimana cara saya mengirimkannya?",
                 "12/10/2023"
             ),
             Chat(
                 4,
-                "Boy Brahmanda",
-                "Jangan lupa makan yaa",
-                "12/10/2023"
+                "Rizki",
+                "Hai, saya ingin melaporkan adanya gangguan layanan. Saya tidak bisa mengakses fitur streaming video.",
+                "12/11/2023"
+            ),
+            Chat(
+                5,
+                "Indra",
+                "Saya belum mendengar keluhan dari pengguna lain.",
+                "12/11/2023"
+            ),
+            Chat(
+                6,
+                "Bayu",
+                "Hai, saya mengalami kesulitan dalam melakukan pembayaran melalui aplikasi.",
+                "12/12/2023"
+            ),
+            Chat(
+                7,
+                "Yunita",
+                "Saya menggunakan kartu kredit Visa, dan pesan kesalahannya hanya menyebutkan \"Transaksi Gagal.\"",
+                "20/12/2023"
             )
         )
     }

@@ -23,8 +23,8 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/judul_laporan"
-            android:inputType="text"
-            android:maxLines="1"
+            android:inputType="textMultiLine"
+            android:maxLength="150"
             android:typeface="normal" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -155,7 +155,7 @@
             android:focusable="true"
             android:fontFamily="@font/poppins_medium"
             android:hint="@string/detail_lokasi"
-            android:inputType="none"
+            android:inputType="textMultiLine"
             android:maxLength="255"
             android:typeface="normal" />
     </com.google.android.material.textfield.TextInputLayout>

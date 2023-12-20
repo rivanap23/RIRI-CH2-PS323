@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
 import com.riridev.ririapp.data.local.pref.UserPreferences
+import com.riridev.ririapp.data.local.room.DiscussionDatabase
 import com.riridev.ririapp.data.model.DiscussionModel
 import com.riridev.ririapp.data.remote.response.CreateCommentResponse
 import com.riridev.ririapp.data.remote.response.CreateDiscussionResponse
@@ -22,12 +23,12 @@ import retrofit2.HttpException
 
 class DiscussionRepository private constructor(
     private val userPreference: UserPreferences,
-    private val apiService: ApiService,
+    private val apiService: ApiService
 ) {
 
     suspend fun createDiscussion(
         discussionModel: DiscussionModel
-    ): Result<CreateDiscussionResponse>{
+    ): Result<CreateDiscussionResponse> {
         return try {
             val user = runBlocking { userPreference.getSession().first() }
             val reqTitle = discussionModel.title.toRequestBody("text/plain".toMediaType())
@@ -46,7 +47,7 @@ class DiscussionRepository private constructor(
                 multipartBody
             )
             Result.Success(createDiscussionResponse)
-        } catch (e: HttpException){
+        } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
@@ -66,7 +67,7 @@ class DiscussionRepository private constructor(
         }
     }
 
-     fun getDetailDiscussion(postId: String): LiveData<Result<GetDiscussionDetailResponse>>{
+    fun getDetailDiscussion(postId: String): LiveData<Result<GetDiscussionDetailResponse>> {
         return liveData {
             emit(Result.Loading)
             try {
@@ -77,12 +78,17 @@ class DiscussionRepository private constructor(
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
                 val errorMessage = errorBody.message
                 emit(Result.Error(errorMessage))
+            } catch (e: Exception) {
+                emit(Result.Error("Signal Problem"))
             }
         }
     }
 
 
-    fun createCommentUser(postId: String, comment: String): LiveData<Result<CreateCommentResponse>> {
+    fun createCommentUser(
+        postId: String,
+        comment: String
+    ): LiveData<Result<CreateCommentResponse>> {
         return liveData {
             emit(Result.Loading)
             try {
@@ -94,6 +100,8 @@ class DiscussionRepository private constructor(
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
                 val errorMessage = errorBody.message
                 emit(Result.Error(errorMessage))
+            } catch (e: Exception) {
+                emit(Result.Error("Signal Problem"))
             }
         }
     }
@@ -105,11 +113,13 @@ class DiscussionRepository private constructor(
                 val user = runBlocking { userPreference.getSession().first() }
                 val response = apiService.likeDiscussion(postId, user.username)
                 emit(Result.Success(response))
-            }  catch (e: HttpException) {
+            } catch (e: HttpException) {
                 val jsonInString = e.response()?.errorBody()?.string()
                 val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
                 val errorMessage = errorBody.message
                 emit(Result.Error(errorMessage))
+            } catch (e: Exception) {
+                emit(Result.Error("Signal Problem"))
             }
         }
     }
@@ -121,6 +131,7 @@ class DiscussionRepository private constructor(
         fun getInstance(
             userPreference: UserPreferences,
             apiService: ApiService,
+            database: DiscussionDatabase
         ): DiscussionRepository =
             instance ?: synchronized(this) {
                 instance ?: DiscussionRepository(userPreference, apiService)

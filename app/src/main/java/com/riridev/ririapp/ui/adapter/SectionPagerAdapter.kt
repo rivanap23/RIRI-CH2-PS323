@@ -17,8 +17,8 @@ class SectionPagerAdapter(activity: AppCompatActivity): FragmentStateAdapter(act
         var fragment: Fragment? = null
         when(position){
             0 -> fragment = VerificationFragment()
-            1 -> fragment = RejectedFragment()
-            2 -> fragment = ProcessFragment()
+            1 -> fragment = ProcessFragment()
+            2 -> fragment = RejectedFragment()
             3 -> fragment = DoneFragment()
         }
         return fragment as Fragment

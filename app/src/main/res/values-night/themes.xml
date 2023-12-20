@@ -8,6 +8,7 @@
         <item name="colorPrimaryContainer">@color/container</item>
         <item name="color">@color/primary</item>
         <item name="colorSurfaceVariant">@color/primary</item>
+        <item name="android:colorBackground">@color/white</item>
         <item name="android:windowBackground">@color/white</item>
         <item name="android:windowActionBar">@color/white</item>
         <item name="bottomAppBarStyle">@style/Widget.App.BottomNavigationView</item>

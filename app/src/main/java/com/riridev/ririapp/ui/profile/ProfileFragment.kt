@@ -2,7 +2,6 @@ package com.riridev.ririapp.ui.profile
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +15,7 @@ import com.riridev.ririapp.data.remote.response.UserResponse
 import com.riridev.ririapp.data.result.Result
 import com.riridev.ririapp.databinding.FragmentProfileBinding
 import com.riridev.ririapp.ui.ViewModelFactory
+import com.riridev.ririapp.ui.dialog.LogoutDialogFragment
 import com.riridev.ririapp.ui.editprofile.EditProfileActivity
 import com.riridev.ririapp.ui.editprofilepicture.EditProfilePictureActivity
 
@@ -23,7 +23,7 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding
     private val profileViewModel: ProfileViewModel by viewModels {
-        ViewModelFactory.getInstance(requireActivity().application)
+        ViewModelFactory.getInstance(requireContext())
     }
     private lateinit var userProfile: UserResponse
 
@@ -38,17 +38,17 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getProfile()
         setupAction()
+        profileViewModel.getUserProfile()
     }
 
     override fun onResume() {
         super.onResume()
+        profileViewModel.getUserProfile()
         getProfile()
     }
 
     private fun getProfile() {
-        profileViewModel.getUserProfile()
         profileViewModel.profileDetail.observe(viewLifecycleOwner){ result ->
             when (result) {
                 is Result.Loading -> {
@@ -64,7 +64,6 @@ class ProfileFragment : Fragment() {
                         .load(userProfile.profileImageUrl)
                         .placeholder(R.drawable.baseline_account_circle_24)
                         .into(binding?.profileLayout?.ivProfile as ImageView)
-                    Log.d("TAG", "getProfile: ${userProfile.profileImageUrl}")
                 }
 
                 is Result.Error -> {
@@ -100,12 +99,15 @@ class ProfileFragment : Fragment() {
         }
     }
 
-
     private fun logout() {
         binding?.profileLayout?.logout?.setOnClickListener {
-            profileViewModel.logout()
-            activity?.finish()
+            showDialog()
         }
+    }
+
+    private fun showDialog() {
+        LogoutDialogFragment().show(
+            parentFragmentManager, LogoutDialogFragment.TAG)
     }
 
     private fun showLoading(isLoading: Boolean) {
@@ -118,4 +120,8 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

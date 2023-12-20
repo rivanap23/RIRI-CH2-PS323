@@ -49,7 +49,7 @@
         app:layout_constraintTop_toBottomOf="@+id/appBarLayout">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_email_register"
+            android:id="@+id/et_email_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
@@ -72,7 +72,7 @@
         app:layout_constraintTop_toBottomOf="@+id/til_email">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_username_register"
+            android:id="@+id/et_username_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
@@ -119,7 +119,7 @@
         app:layout_constraintTop_toTopOf="@+id/til_birth_place">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/et_birth_date"
+            android:id="@+id/et_birth_date_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"

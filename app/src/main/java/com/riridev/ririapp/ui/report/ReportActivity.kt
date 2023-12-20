@@ -1,10 +1,6 @@
 package com.riridev.ririapp.ui.report
 
-import android.Manifest
-import android.content.pm.PackageManager
-import android.location.Address
-import android.location.Geocoder
-import android.location.Location
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.View
@@ -13,17 +9,14 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
-import com.google.android.gms.location.LocationServices
 import com.riridev.ririapp.data.model.ReportModel
 import com.riridev.ririapp.data.result.Result
 import com.riridev.ririapp.databinding.ReportLayoutBinding
 import com.riridev.ririapp.ui.ViewModelFactory
+import com.riridev.ririapp.ui.dialog.ReportDialogFragment
 import com.riridev.ririapp.utils.getImageUri
 import com.riridev.ririapp.utils.reduceFileImage
 import com.riridev.ririapp.utils.uriToFile
-import java.io.IOException
-import java.util.Locale
 
 class ReportActivity : AppCompatActivity() {
     private lateinit var binding: ReportLayoutBinding
@@ -31,6 +24,16 @@ class ReportActivity : AppCompatActivity() {
     private val reportViewModel by viewModels<ReportViewModel> {
         ViewModelFactory.getInstance(application)
     }
+    private val fakeDialog = ReportDialogFragment.newInstance("fake")
+    private val succesDialog = ReportDialogFragment.newInstance("notFake")
+
+    private val mapsActivityResult =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == MapsActivity.RESULT_CODE && result.data != null) {
+                val yourAddress = result.data?.getStringExtra(MapsActivity.EXTRA_ADDRESS_VALUE)
+                binding.activityReport.etLocation.setText(yourAddress.toString())
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,26 +44,56 @@ class ReportActivity : AppCompatActivity() {
         supportActionBar?.setDisplayShowHomeEnabled(true)
 
         setupAction()
+    }
 
-        reportViewModel.report.observe(this){result ->
-                when (result) {
-                    is Result.Loading -> {
-                        showLoading(true)
-                        binding.activityReport.btnSend.isEnabled = false
-                    }
+    private fun observeFakeDetection(){
+        reportViewModel.fakeDetection.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    showLoading(true)
+                }
 
-                    is Result.Success -> {
-                        showLoading(false)
-                        Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
-                        finish()
-                    }
-
-                    is Result.Error -> {
-                        showLoading(false)
-                        Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                is Result.Success -> {
+                    showLoading(false)
+                    val predict = result.data.prediction
+                    if (predict == 1) {
+                        fakeDialog.resultState = false
+                        fakeDialog.show(supportFragmentManager, "fake")
+                    } else {
+                        currentImageUri?.let { uri ->
+                            sendReport(uri)
+                        }
                     }
                 }
+
+                is Result.Error -> {
+                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                }
             }
+        }
+    }
+
+    private fun observeReport(){
+        reportViewModel.report.observe(this) { result ->
+            when (result) {
+                is Result.Loading -> {
+                    showLoading(true)
+                    binding.activityReport.btnSend.isEnabled = false
+                }
+
+                is Result.Success -> {
+                    showLoading(false)
+                    succesDialog.resultState = true
+                    succesDialog.show(supportFragmentManager, "notFake")
+                    Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
+                }
+
+                is Result.Error -> {
+                    showLoading(false)
+                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
     }
 
     private fun setupAction() {
@@ -74,8 +107,10 @@ class ReportActivity : AppCompatActivity() {
         }
 
         binding.activityReport.btnAmbilLokasi.setOnClickListener {
-            getMyLastLocation()
+            val intent = Intent(this, MapsActivity::class.java)
+            mapsActivityResult.launch(intent)
         }
+
 
         binding.activityReport.cbAgreement.setOnCheckedChangeListener { _, isChecked ->
             binding.activityReport.btnSend.isEnabled = isChecked
@@ -83,13 +118,24 @@ class ReportActivity : AppCompatActivity() {
 
         binding.activityReport.btnSend.setOnClickListener {
             //send the form
-            currentImageUri?.let { uri ->
-                sendReport(uri)
+            val title = binding.activityReport.etTitle.text.toString()
+            val instansi = binding.activityReport.tvInstansiReport.text.toString()
+            val category = binding.activityReport.tvCategoryReport.text.toString()
+            val description = binding.activityReport.etDescription.text.toString()
+            val location = binding.activityReport.etLocation.text.toString()
+            val detailLocation = binding.activityReport.etDetailLocation.text.toString()
+
+
+            if ( title.isEmpty() || instansi.isEmpty() || category.isEmpty() || description.isEmpty() || location.isEmpty() || detailLocation.isEmpty() || currentImageUri == null) {
+                Toast.makeText(this, "Lengkapi Form Telebih Dahulu", Toast.LENGTH_SHORT).show()
+            } else {
+                reportViewModel.fakeReportDetection(title)
+                observeFakeDetection()
             }
         }
     }
 
-    private fun sendReport(uri: Uri){
+    private fun sendReport(uri: Uri) {
         val title = binding.activityReport.etTitle.text.toString()
         val instansi = binding.activityReport.tvInstansiReport.text.toString()
         val category = binding.activityReport.tvCategoryReport.text.toString()
@@ -108,6 +154,7 @@ class ReportActivity : AppCompatActivity() {
             image
         )
         reportViewModel.sendReport(report)
+        observeReport()
     }
 
     private fun startGallery() {
@@ -144,93 +191,8 @@ class ReportActivity : AppCompatActivity() {
             }
         }
 
-    private val requestPermissionLauncher =
-        registerForActivityResult(
-            ActivityResultContracts.RequestMultiplePermissions()
-        ) { permissions ->
-            when {
-                permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false -> {
-                    // Precise location access granted.
-                    getMyLastLocation()
-                }
-
-                permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false -> {
-                    // Only approximate location access granted.
-                    getMyLastLocation()
-                }
-
-                else -> {
-                    // No location access granted.
-                }
-            }
-        }
-
-    private fun checkPermission(permission: String): Boolean {
-        return ContextCompat.checkSelfPermission(
-            this,
-            permission
-        ) == PackageManager.PERMISSION_GRANTED
-    }
-
-    private fun getMyLastLocation() {
-        if (checkPermission(Manifest.permission.ACCESS_FINE_LOCATION) &&
-            checkPermission(Manifest.permission.ACCESS_COARSE_LOCATION)
-        ) {
-            val fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
-
-            try {
-                fusedLocationProviderClient.lastLocation
-                    .addOnSuccessListener { location: Location? ->
-                        // Handle the location result
-                        location?.let { getAddress(it.latitude, it.longitude) }
-                    }
-                    .addOnFailureListener { e ->
-                        // Handle the failure
-                        Toast.makeText(
-                            this,
-                            "Error getting location: ${e.message}",
-                            Toast.LENGTH_SHORT
-                        )
-                            .show()
-                    }
-            } catch (e: SecurityException) {
-                e.printStackTrace()
-            }
-
-        } else {
-            requestPermissionLauncher.launch(
-                arrayOf(
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION
-                )
-            )
-        }
-    }
-
-    @Suppress("DEPRECATION")
-    private fun getAddress(latitude: Double, longitude: Double) {
-        val geocoder = Geocoder(this, Locale.getDefault())
-        val addressList: List<Address>?
-
-        try {
-            addressList = geocoder.getFromLocation(latitude, longitude, 1)
-
-            if (!addressList.isNullOrEmpty()) {
-                val address = addressList[0]
-                val addressText = address.getAddressLine(0)
-                // Use the addressText as needed (e.g., display in a TextView)
-                binding.activityReport.etLocation.setText(addressText)
-            } else {
-                Toast.makeText(this, "No address found", Toast.LENGTH_SHORT).show()
-            }
-        } catch (e: IOException) {
-            e.printStackTrace()
-        }
-    }
-
     private fun showLoading(isLoading: Boolean) {
         binding.loadingIndicator.visibility =
             if (isLoading) View.VISIBLE else View.GONE
     }
-
 }

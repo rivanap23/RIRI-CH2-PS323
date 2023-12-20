@@ -8,8 +8,20 @@
         <item name="colorPrimaryContainer">@color/container</item>
         <item name="color">@color/primary</item>
         <item name="colorSurfaceVariant">@color/primary</item>
+        <item name="android:windowBackground">@color/white</item>
         <item name="bottomAppBarStyle">@style/Widget.App.BottomNavigationView</item>
+        <item name="toolbarStyle">@style/Widget.App.ToolBar</item>
         <item name="android:forceDarkAllowed" tools:targetApi="q">false</item>
+    </style>
+
+    <style name="Widget.App.ToolBar" parent="Widget.Material3.Toolbar">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Toolbar</item>
+        <item name="titleTextAppearance">@style/TextAppearance.App.TopAppBar</item>
+    </style>
+
+    <style name="ThemeOverlay.App.Toolbar" parent="">
+        <item name="colorSurface">@color/primary_variant</item>
+        <item name="colorOnSurface">@color/black</item>
     </style>
 
     <style name="Widget.App.BottomNavigationView" parent="Widget.Material3.BottomNavigationView">

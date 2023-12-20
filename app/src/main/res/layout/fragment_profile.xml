@@ -10,8 +10,9 @@
         android:id="@+id/sv_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:paddingBottom="130dp"
+        android:visibility="visible"
+        android:layout_marginBottom="10dp"
+        android:paddingBottom="50dp"
         android:clipToPadding="false">
 
         <include android:id="@+id/profile_layout" layout="@layout/profile_layout" />

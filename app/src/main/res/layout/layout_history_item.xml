@@ -2,7 +2,8 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="70dp"
+    android:layout_height="wrap_content"
+    android:minHeight="70dp"
     android:layout_marginHorizontal="12dp"
     android:layout_marginTop="20dp"
     app:cardBackgroundColor="@color/white"
@@ -12,12 +13,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:minHeight="70dp">
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="13dp"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
+            android:minHeight="70dp"
             android:contentDescription="@string/history"
             android:src="@drawable/indicator_process_history"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -27,27 +30,31 @@
 
         <TextView
             android:id="@+id/title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
+            android:layout_marginEnd="24dp"
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/judul_laporan"
+            android:maxLines="1"
+            android:ellipsize="end"
             android:textColor="@color/black"
             android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/date"
             app:layout_constraintStart_toEndOf="@+id/imageView"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/location"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
-            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
             android:fontFamily="@font/poppins_medium"
             android:maxLines="1"
-            android:textColor="@color/gray"
             android:text="@string/lokasi"
+            android:textColor="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/date"
             app:layout_constraintStart_toStartOf="@+id/title"

@@ -31,8 +31,16 @@ class ProcessFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getData()
+    }
 
-        historyViewModel.getHistoryReport()
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
+    private fun getData(){
+        historyViewModel.getProcessedReport()
         historyViewModel.process.observe(viewLifecycleOwner){result ->
             when(result){
                 is Result.Loading -> {
@@ -49,7 +57,6 @@ class ProcessFragment : Fragment() {
                 }
             }
         }
-
     }
 
     private fun setupRecyclerView(history: List<ProcessedReportsItem>) {
@@ -57,8 +64,7 @@ class ProcessFragment : Fragment() {
         val adapter = HistoryAdapter {
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
         }
-        val processProcessedReport = history.filter { it.status == "diproses" }
-        adapter.submitList(processProcessedReport)
+        adapter.submitList(history)
         binding?.rvHistory?.adapter = adapter
     }
 

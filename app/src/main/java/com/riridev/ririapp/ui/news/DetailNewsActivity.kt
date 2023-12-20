@@ -8,7 +8,7 @@ import com.riridev.ririapp.R
 import com.riridev.ririapp.data.model.NewsModel
 import com.riridev.ririapp.databinding.ActivityDetailNewsBinding
 
-@Suppress("DEPRECATION")
+
 class DetailNewsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityDetailNewsBinding
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,6 +22,7 @@ class DetailNewsActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
+        @Suppress("DEPRECATION")
         val newsModel = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(DETAIL_INTENT, NewsModel::class.java)
         } else {

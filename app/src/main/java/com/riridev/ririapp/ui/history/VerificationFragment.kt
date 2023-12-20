@@ -31,8 +31,16 @@ class VerificationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getData()
+    }
 
-        historyViewModel.getHistoryReport()
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
+    private fun getData(){
+        historyViewModel.getVerifReport()
         historyViewModel.process.observe(viewLifecycleOwner){result ->
             when(result){
                 is Result.Loading -> {
@@ -54,10 +62,9 @@ class VerificationFragment : Fragment() {
     private fun setupRecyclerView(history: List<ProcessedReportsItem>) {
         binding?.rvHistory?.layoutManager = LinearLayoutManager(requireActivity())
         val adapter = HistoryAdapter {
-            Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
+
         }
-        val historyVerificationStep = history.filter { it.status == "verifikasi" }
-        adapter.submitList(historyVerificationStep)
+        adapter.submitList(history)
         binding?.rvHistory?.adapter = adapter
     }
 

@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
+import com.riridev.ririapp.R
 import com.riridev.ririapp.data.remote.response.CommentsItem
 import com.riridev.ririapp.data.remote.response.GetDiscussionDetailResponse
 import com.riridev.ririapp.data.result.Result
@@ -20,6 +21,7 @@ class DetailDiscussActivity : AppCompatActivity() {
     private val detailDiscussViewModel: DetailDiscussViewModel by viewModels {
         DiscussViewModelFactory.getInstance(this)
     }
+    private var isCommentShowed: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,7 +37,6 @@ class DetailDiscussActivity : AppCompatActivity() {
 
         getDetailData(postId)
         setupAction(postId)
-
     }
 
     private fun setupAction(postId: String) {
@@ -49,12 +50,13 @@ class DetailDiscussActivity : AppCompatActivity() {
                     }
                     is Result.Success -> {
                         showLoading(false)
-                        showToast(result.data.message)
+                        binding.messageEditText.setText("")
                         getDetailData(postId)
                     }
                     is Result.Error -> {
                         showLoading(false)
-                       showToast(result.error)
+                        binding.messageEditText.setText("")
+                        showToast(result.error)
                     }
                 }
             }
@@ -65,23 +67,24 @@ class DetailDiscussActivity : AppCompatActivity() {
             detailDiscussViewModel.addLikeDiscussion(postId).observe(this){result ->
                 when(result){
                     is Result.Loading -> {
-                        showLoading(true)
                     }
                     is Result.Success -> {
-                        showLoading(false)
-                        showToast(result.data.message)
                         getDetailData(postId)
                     }
                     is Result.Error -> {
-                        showLoading(false)
-                        showToast(result.error)
                     }
                 }
             }
         }
 
         binding.btnComment.setOnClickListener {
-            binding.linearLayout.visibility = View.VISIBLE
+            if (!isCommentShowed){
+                binding.linearLayout.visibility = View.VISIBLE
+                isCommentShowed = true
+            } else {
+                binding.linearLayout.visibility = View.GONE
+                isCommentShowed = false
+            }
         }
     }
 
@@ -89,15 +92,11 @@ class DetailDiscussActivity : AppCompatActivity() {
         detailDiscussViewModel.getDetailDiscussion(postId).observe(this) { result ->
             when (result) {
                 is Result.Loading -> {
-                    showLoading(true)
-                }
-
-                is Result.Success -> {
                     showLoading(false)
+                }
+                is Result.Success -> {
                     val dataDetail = result.data
                     bindData(dataDetail)
-
-
                     if (dataDetail.comments.isEmpty()) {
                         binding.recyclerView.visibility = View.GONE
                         binding.linearLayout.visibility = View.GONE
@@ -119,6 +118,7 @@ class DetailDiscussActivity : AppCompatActivity() {
         binding.titleDetail.text = dataDetail.title
         binding.yourname.text = dataDetail.username
         binding.descriptionDiscuss.text = dataDetail.content
+        binding.tvLikeCount.text = getString(R.string.likes, dataDetail.likes.toString())
 
         binding.dateDiscuss.text =
             DateConverter.getDateString(dataDetail.timestamp.seconds.toLong(), "dd/MM/yyyy")

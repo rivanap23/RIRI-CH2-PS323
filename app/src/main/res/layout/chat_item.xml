@@ -19,7 +19,7 @@
             android:id="@+id/imageView"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/indicator_process_history"
+            android:src="@drawable/baseline_account_circle_24"
             android:layout_marginStart="8dp"
             app:shapeAppearance="@style/ShapeAppearance.Material3.Corner.Full"
             app:layout_constraintBottom_toBottomOf="parent"

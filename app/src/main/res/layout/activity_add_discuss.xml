@@ -62,11 +62,10 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/et_title_discuss"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:fontFamily="@font/poppins_medium"
                     android:hint="@string/judul_diskusi"
-                    android:inputType="text"
-                    android:maxLines="1"
+                    android:inputType="textMultiLine"
                     android:typeface="normal" />
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -86,7 +85,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:gravity="start|top"
                     android:hint="@string/isi_diskusi"
-                    android:inputType="text"
+                    android:inputType="textMultiLine"
                     android:minHeight="300dp"
                     android:typeface="normal" />
             </com.google.android.material.textfield.TextInputLayout>

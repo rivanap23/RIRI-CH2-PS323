@@ -3,17 +3,22 @@ package com.riridev.ririapp.data
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.liveData
 import com.google.gson.Gson
+import com.google.gson.JsonObject
 import com.riridev.ririapp.data.local.pref.UserModel
 import com.riridev.ririapp.data.local.pref.UserPreferences
 import com.riridev.ririapp.data.model.ReportModel
+import com.riridev.ririapp.data.remote.response.DetectionFakeReportResponse
 import com.riridev.ririapp.data.remote.response.ErrorResponse
-import com.riridev.ririapp.data.remote.response.GetReportResponse
+import com.riridev.ririapp.data.remote.response.GetAcceptedReportsResponse
+import com.riridev.ririapp.data.remote.response.GetRejectedReportsResponse
+import com.riridev.ririapp.data.remote.response.GetVerifAndProcessReportsResponse
 import com.riridev.ririapp.data.remote.response.LoginResponse
 import com.riridev.ririapp.data.remote.response.RegisterResponse
 import com.riridev.ririapp.data.remote.response.ReportResponse
 import com.riridev.ririapp.data.remote.response.UploadProfilePictureResponse
 import com.riridev.ririapp.data.remote.response.UserResponse
 import com.riridev.ririapp.data.remote.retrofit.ApiService
+import com.riridev.ririapp.data.remote.retrofit.apiml.ApiMlService
 import com.riridev.ririapp.data.result.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -29,7 +34,10 @@ import java.io.File
 class UserRepository private constructor(
     private val userPreference: UserPreferences,
     private val apiService: ApiService,
+    private val apiMlService: ApiMlService
 ) {
+
+    //auth
     suspend fun register(
         email: String,
         username: String,
@@ -66,6 +74,7 @@ class UserRepository private constructor(
         }
     }
 
+    //profile
     suspend fun getUserDetail(): Result<UserResponse> {
         return try {
             val user = runBlocking { userPreference.getSession().first() }
@@ -76,21 +85,6 @@ class UserRepository private constructor(
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
             Result.Error("Failed: $errorMessage")
-        }
-    }
-
-    suspend fun getHistoryReport(): Result<GetReportResponse> {
-        return try {
-            val user = runBlocking { userPreference.getSession().first() }
-            val getHistoryResponse = apiService.getReport(user.userId)
-            Result.Success(getHistoryResponse)
-        } catch (e: HttpException) {
-            val jsonInString = e.response()?.errorBody()?.string()
-            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
-            val errorMessage = errorBody.message
-            Result.Error("Login Failed: $errorMessage")
-        } catch (e: Exception) {
-            (Result.Error("Signal Problem"))
         }
     }
 
@@ -117,33 +111,128 @@ class UserRepository private constructor(
         }
     }
 
-    suspend fun updateUserProfile(email: String?, username: String?): Result<ErrorResponse> {
-        return try {
-            val user = userPreference.getSession().first()
-            if (email == null) {
-                val updateResponse =
-                    apiService.updateProflieInfo(userId = user.userId, null, username.toString())
-                Result.Success(updateResponse)
-            } else if (username == null) {
-                val updateResponse =
-                    apiService.updateProflieInfo(userId = user.userId, email.toString(), null)
-                Result.Success(updateResponse)
-            } else {
-                val updateResponse = apiService.updateProflieInfo(
-                    userId = user.userId,
-                    email.toString(),
-                    username.toString()
+    fun updateUsername(username: String): LiveData<Result<ErrorResponse>> {
+        return liveData {
+            emit(Result.Loading)
+            try {
+                val user = runBlocking { userPreference.getSession().first() }
+                val updateResponse = apiService.updateUsernameProfile(user.userId, username)
+                val newProfile = UserModel(
+                    user.userId,
+                    username,
+                    user.accessToken,
+                    true
                 )
-                Result.Success(updateResponse)
+                userPreference.saveSession(newProfile)
+                emit(Result.Success(updateResponse))
+            } catch (e: HttpException){
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error("Upload Failed: $errorMessage"))
             }
+        }
+    }
+
+    fun updateEmail(email: String): LiveData<Result<ErrorResponse>> {
+        return liveData {
+            emit(Result.Loading)
+            try {
+                val user = runBlocking { userPreference.getSession().first() }
+                val updateResponse = apiService.updateEmailProfile(user.userId, email)
+                emit(Result.Success(updateResponse))
+            } catch (e: HttpException){
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error("Upload Failed: $errorMessage"))
+            }
+        }
+    }
+
+    fun updateProfileInfo(email: String, username: String): LiveData<Result<ErrorResponse>> {
+        return liveData {
+            emit(Result.Loading)
+            try {
+                val user = runBlocking { userPreference.getSession().first() }
+                val updateResponse = apiService.updateProfileInfo(user.userId, email, username)
+                val newProfile = UserModel(
+                    user.userId,
+                    username,
+                    user.accessToken,
+                    true
+                )
+                userPreference.saveSession(newProfile)
+                emit(Result.Success(updateResponse))
+            } catch (e: HttpException){
+                val jsonInString = e.response()?.errorBody()?.string()
+                val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+                val errorMessage = errorBody.message
+                emit(Result.Error("Upload Failed: $errorMessage"))
+            }
+        }
+    }
+
+    //report
+    suspend fun getVerifReport(): Result<GetVerifAndProcessReportsResponse> {
+        return try {
+            val user = runBlocking { userPreference.getSession().first() }
+            val getHistoryResponse = apiService.getVerifReport(user.userId)
+            Result.Success(getHistoryResponse)
         } catch (e: HttpException) {
             val jsonInString = e.response()?.errorBody()?.string()
             val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
             val errorMessage = errorBody.message
-            Result.Error("Upload Failed: $errorMessage")
+            Result.Error("Login Failed: $errorMessage")
+        } catch (e: Exception) {
+            (Result.Error("Signal Problem"))
         }
     }
 
+    suspend fun getRejectedReport(): Result<GetRejectedReportsResponse> {
+        return try {
+            val user = runBlocking { userPreference.getSession().first() }
+            val getHistoryResponse = apiService.getRejectedReport(user.userId)
+            Result.Success(getHistoryResponse)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            Result.Error("Login Failed: $errorMessage")
+        } catch (e: Exception) {
+            (Result.Error("Signal Problem"))
+        }
+    }
+
+    suspend fun getProcessedReport(): Result<GetVerifAndProcessReportsResponse> {
+        return try {
+            val user = runBlocking { userPreference.getSession().first() }
+            val getHistoryResponse = apiService.getProcessedReport(user.userId)
+            Result.Success(getHistoryResponse)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            Result.Error("Login Failed: $errorMessage")
+        } catch (e: Exception) {
+            (Result.Error("Signal Problem"))
+        }
+    }
+
+    suspend fun getDoneReport(): Result<GetAcceptedReportsResponse> {
+        return try {
+            val user = runBlocking { userPreference.getSession().first() }
+            val getHistoryResponse = apiService.getDoneReport(user.userId)
+            Result.Success(getHistoryResponse)
+        } catch (e: HttpException) {
+            val jsonInString = e.response()?.errorBody()?.string()
+            val errorBody = Gson().fromJson(jsonInString, ErrorResponse::class.java)
+            val errorMessage = errorBody.message
+            Result.Error("Login Failed: $errorMessage")
+        } catch (e: Exception) {
+            (Result.Error("Signal Problem"))
+        }
+    }
 
     suspend fun createReport(
         report: ReportModel
@@ -184,6 +273,20 @@ class UserRepository private constructor(
         }
     }
 
+    suspend fun fakeReportDetection(title: String): Result<DetectionFakeReportResponse>{
+        return try {
+            val titleText = JsonObject()
+            titleText.addProperty("text", title)
+            val response = apiMlService.predictFakeReport(titleText)
+            Result.Success(response)
+        } catch (e: HttpException) {
+            val response = e.response()?.errorBody()
+            val errorMessage = response.toString()
+            Result.Error("Upload Failed: $errorMessage")
+        }
+    }
+
+    //session
     suspend fun saveSession(user: UserModel) {
         userPreference.saveSession(user)
     }
@@ -203,9 +306,10 @@ class UserRepository private constructor(
         fun getInstance(
             userPreference: UserPreferences,
             apiService: ApiService,
+            apiMlService: ApiMlService
         ): UserRepository =
             instance ?: synchronized(this) {
-                instance ?: UserRepository(userPreference, apiService)
+                instance ?: UserRepository(userPreference, apiService, apiMlService)
             }.also { instance = it }
     }
 }

@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -48,7 +49,7 @@ class HomeFragment : Fragment() {
         snapHelper.attachToRecyclerView(binding?.homeLayout?.carouselRecyclerView)
     }
 
-    private fun setupActionBottomNav(){
+    private fun setupActionBottomNav() {
         binding?.homeLayout?.btnReport?.setOnClickListener {
             val intent = Intent(requireContext(), ReportActivity::class.java)
             startActivity(intent)
@@ -78,5 +79,18 @@ class HomeFragment : Fragment() {
             val intent = Intent(requireContext(), ListAgensi::class.java)
             startActivity(intent)
         }
+
+        binding?.homeLayout?.btnReview?.setOnClickListener {
+            Toast.makeText(requireContext(), "Fitur belum tersedia", Toast.LENGTH_SHORT).show()
+        }
+
+        binding?.homeLayout?.btnStatistic?.setOnClickListener {
+            Toast.makeText(requireContext(), "Fitur belum tersedia", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
     }
 }

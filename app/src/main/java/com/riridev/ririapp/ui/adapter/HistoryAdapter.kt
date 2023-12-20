@@ -26,7 +26,7 @@ class HistoryAdapter(
                         )
                     )
                 }
-                "done" -> {
+                "selesai" -> {
                     binding.imageView.setImageDrawable(
                         ContextCompat.getDrawable(
                             binding.imageView.context,
@@ -65,6 +65,16 @@ class HistoryAdapter(
             binding.date.text =
                 DateConverter.getDateString(report.createdAt.seconds.toLong(), "dd/MM/yyyy")
         }
+
+        fun afterCliCk(){
+            binding.title.maxLines = 3
+            binding.location.maxLines = 5
+        }
+
+        fun beforeClick(){
+            binding.title.maxLines = 1
+            binding.location.maxLines = 1
+        }
     }
 
     override fun onCreateViewHolder(
@@ -78,8 +88,15 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: HistoryViewHolder, position: Int) {
         val report = getItem(position)
+        var isClicked = true
         holder.bind(report)
         holder.itemView.setOnClickListener {
+            if (isClicked){
+                holder.afterCliCk()
+            } else {
+                holder.beforeClick()
+            }
+            isClicked = !isClicked
             onClick(report)
         }
     }

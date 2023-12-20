@@ -31,9 +31,21 @@ class RejectedFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        getData()
+    }
 
-        historyViewModel.getHistoryReport()
-        historyViewModel.process.observe(viewLifecycleOwner){result ->
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+    private fun getData(){
+        historyViewModel.getRejectedReport()
+        historyViewModel.reject.observe(viewLifecycleOwner){result ->
             when(result){
                 is Result.Loading -> {
                     showLoading(true)
@@ -56,8 +68,7 @@ class RejectedFragment : Fragment() {
         val adapter = HistoryAdapter {
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
         }
-        val rejectProcessedReport = history.filter { it.status == "ditolak" }
-        adapter.submitList(rejectProcessedReport)
+        adapter.submitList(history)
         binding?.rvHistory?.adapter = adapter
     }
 

@@ -31,8 +31,12 @@ class DoneFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        historyViewModel.getHistoryReport()
-        historyViewModel.process.observe(viewLifecycleOwner){result ->
+        getData()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        historyViewModel.done.observe(viewLifecycleOwner){result ->
             when(result){
                 is Result.Loading -> {
                     showLoading(true)
@@ -50,13 +54,22 @@ class DoneFragment : Fragment() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
+    private fun getData(){
+        historyViewModel.getDoneReport()
+
+    }
+
     private fun setupRecyclerView(history: List<ProcessedReportsItem>) {
         binding?.rvHistory?.layoutManager = LinearLayoutManager(requireActivity())
         val adapter = HistoryAdapter {
             Toast.makeText(requireContext(), "$it", Toast.LENGTH_SHORT).show()
         }
-        val doneProcessedReport = history.filter { it.status == "done" }
-        adapter.submitList(doneProcessedReport)
+        adapter.submitList(history)
         binding?.rvHistory?.adapter = adapter
     }
 

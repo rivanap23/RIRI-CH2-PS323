@@ -84,7 +84,6 @@
             android:textSize="14sp" />
 
         <TextView
-            android:id="@+id/date_upload"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/poppins_medium"
@@ -121,35 +120,59 @@
 
             <ImageButton
                 android:id="@+id/btn_comment"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/comment"
-                android:src="@drawable/outline_comment_24"
+                android:scaleType="fitCenter"
+                android:adjustViewBounds="true"
+                android:layout_marginEnd="8dp"
+                android:src="@drawable/iconamoon_comment"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_share"
                 app:layout_constraintEnd_toStartOf="@id/btn_share"
                 app:layout_constraintTop_toTopOf="@id/btn_share" />
 
             <ImageButton
                 android:id="@+id/btn_like"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:scaleType="fitCenter"
+                android:layout_marginEnd="8dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/like"
-                android:src="@drawable/baseline_thumb_up_off_alt_24"
+                android:src="@drawable/icon_park_outline_like"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_share"
                 app:layout_constraintEnd_toStartOf="@+id/btn_comment"
                 app:layout_constraintTop_toTopOf="@+id/btn_share" />
 
             <ImageButton
                 android:id="@+id/btn_share"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
-                android:layout_marginEnd="10dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="@string/share"
-                android:src="@drawable/outline_share_24"
+                android:scaleType="fitCenter"
+                android:src="@drawable/lucide_send"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_like_count"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:fontFamily="@font/poppins_semibold"
+                android:maxLines="2"
+                android:text="@string/likes"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@+id/btn_like"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/btn_like" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.recyclerview.widget.RecyclerView
@@ -180,7 +203,6 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:autofillHints="name"
                 android:background="@drawable/edit_text_shadow"
                 android:hint="@string/tuliskan_sesuatu"
                 android:inputType="text"
@@ -198,16 +220,15 @@
 
         </LinearLayout>
 
-        <com.google.android.material.progressindicator.CircularProgressIndicator
+        <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/loadingIndicator"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
+            android:visibility="visible"
             android:indeterminate="true"
             app:indicatorColor="@color/primary"
             app:trackColor="@color/container"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"/>
+            android:layout_alignParentBottom="true"/>
     </RelativeLayout>
 
 </ScrollView>

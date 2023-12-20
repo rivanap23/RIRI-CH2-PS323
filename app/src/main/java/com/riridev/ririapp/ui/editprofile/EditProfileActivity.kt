@@ -2,7 +2,6 @@ package com.riridev.ririapp.ui.editprofile
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.riridev.ririapp.data.result.Result
@@ -30,47 +29,78 @@ class EditProfileActivity : AppCompatActivity() {
         val placeOfBirth = intent.getStringExtra(PLACE).toString()
         val dateOfBirth = intent.getStringExtra(DATE).toString()
 
-        binding.etUsernameRegister.setText(username)
-        binding.etBirthDate.setText(dateOfBirth)
-        binding.etEmailRegister.setText(email)
+        binding.etUsernameEdit.setText(username)
+        binding.etBirthPlace.setText(dateOfBirth)
+        binding.etEmailEdit.setText(email)
         binding.etBirthPlace.setText(placeOfBirth)
-        binding.etBirthDate.isEnabled = false
+        binding.etUsernameEdit.isEnabled = false
+        binding.etBirthPlace.isEnabled = false
         binding.etBirthPlace.isEnabled = false
 
-        editProfileViewModel.editProflie.observe(this) { result ->
-            when (result) {
-                is Result.Loading -> {
-                    showLoading(true)
-                }
-
-                is Result.Success -> {
-                    showLoading(false)
-                    Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
-                    finish()
-                }
-
-                is Result.Error -> {
-                    showLoading(false)
-                    Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
-                }
-            }
-        }
-
         binding.btnRegister.setOnClickListener {
-            val newEmail = binding.etEmailRegister.text.toString()
-            val newUsername = binding.etUsernameRegister.text.toString()
+            val newEmail = binding.etEmailEdit.text.toString()
+            val newUsername = binding.etUsernameEdit.text.toString()
+            if (email == newEmail) {
+                editProfileViewModel.editUsername(newUsername).observe(this) { result ->
+                    when (result) {
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
 
-            if (email == newEmail){
-                editProfileViewModel.editProfile(null, newUsername)
+                        is Result.Success -> {
+                            showLoading(false)
+                            finish()
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            finish()
+                        }
+                    }
+                }
             } else if (username == newUsername) {
-                editProfileViewModel.editProfile(newEmail, null)
+                editProfileViewModel.editEmail(newEmail).observe(this) { result ->
+                    when (result) {
+                        is Result.Loading -> {
+                            showLoading(true)
+                        }
+
+                        is Result.Success -> {
+                            showLoading(false)
+                            finish()
+                        }
+
+                        is Result.Error -> {
+                            showLoading(false)
+                            finish()
+                        }
+                    }
+                }
             } else {
-                editProfileViewModel.editProfile(newEmail, newUsername)
+                editProfileViewModel.updateProfileInfo(newEmail, newUsername)
+                    .observe(this) { result ->
+                        when (result) {
+                            is Result.Loading -> {
+                                showLoading(true)
+                            }
+
+                            is Result.Success -> {
+                                showLoading(false)
+                                finish()
+                            }
+
+                            is Result.Error -> {
+                                showLoading(false)
+                                finish()
+                            }
+                        }
+                    }
             }
         }
     }
-    private fun showLoading(isLoading: Boolean){
-        if (isLoading){
+
+    private fun showLoading(isLoading: Boolean) {
+        if (isLoading) {
             binding.loadingIndicator.visibility = View.VISIBLE
         } else {
             binding.loadingIndicator.visibility = View.GONE

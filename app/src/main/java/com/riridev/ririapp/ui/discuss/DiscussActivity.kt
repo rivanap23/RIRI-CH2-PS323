@@ -2,7 +2,6 @@ package com.riridev.ririapp.ui.discuss
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -37,19 +36,18 @@ class DiscussActivity : AppCompatActivity() {
         disscussViewModel.getAllDiscussion()
     }
 
-    private fun getData(){
+    private fun getData() {
         disscussViewModel.getDiscussion.observe(this) { result ->
-            when(result){
+            when (result) {
                 is Result.Loading -> {
-                    showLoading(true)
                 }
+
                 is Result.Success -> {
-                    showLoading(false)
                     val response = result.data
                     setupRecyclerView(response)
                 }
+
                 is Result.Error -> {
-                    showLoading(false)
                     Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -60,22 +58,21 @@ class DiscussActivity : AppCompatActivity() {
     private fun setupRecyclerView(response: List<GetDiscussionResponseItem>) {
         val layoutManager = LinearLayoutManager(this)
         binding.rvDiscuss.layoutManager = layoutManager
-        val adapter = DiscussAdapter (
+        val adapter = DiscussAdapter(
             likeClick = {
-                disscussViewModel.addLikeDiscussion(it.postId).observe(this){result ->
-                    when(result){
+                disscussViewModel.addLikeDiscussion(it.postId).observe(this) { result ->
+                    when (result) {
                         is Result.Loading -> {}
                         is Result.Success -> {
-                            Toast.makeText(this, result.data.message, Toast.LENGTH_SHORT).show()
+                            disscussViewModel.getAllDiscussion()
                         }
                         is Result.Error -> {
                             Toast.makeText(this, result.error, Toast.LENGTH_SHORT).show()
                         }
                     }
                 }
-                return@DiscussAdapter true
             }
-        ){
+        ) {
             val intent = Intent(this, DetailDiscussActivity::class.java)
             intent.putExtra("post_id", it.postId)
             startActivity(intent)
@@ -91,11 +88,4 @@ class DiscussActivity : AppCompatActivity() {
         }
     }
 
-    private fun showLoading(isLoading: Boolean){
-        if (isLoading){
-            binding.loadingIndicator.visibility = View.VISIBLE
-        } else {
-            binding.loadingIndicator.visibility = View.GONE
-        }
-    }
 }

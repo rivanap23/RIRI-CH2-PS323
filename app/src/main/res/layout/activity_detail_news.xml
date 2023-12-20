@@ -52,6 +52,7 @@
             android:maxHeight="500dp"
             android:scaleType="centerCrop"
             android:src="@drawable/n_1"
+            android:contentDescription="@string/image_news"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_title_detail_news" />
@@ -89,6 +90,7 @@
             android:fontFamily="@font/poppins_medium"
             android:lineSpacingExtra="8sp"
             android:text="@string/deskripsi"
+            android:textAlignment="viewStart"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/iv_news_detail"
             app:layout_constraintStart_toStartOf="@+id/iv_news_detail"
@@ -102,7 +104,7 @@
             android:fontFamily="@font/poppins_semibold"
             android:text="@string/sumber"
             android:textColor="@color/black"
-            android:textSize="12sp"
+            android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="@+id/iv_news_detail"
             app:layout_constraintStart_toStartOf="@+id/iv_news_detail"
             app:layout_constraintTop_toBottomOf="@+id/tv_description_news" />
@@ -111,10 +113,12 @@
             android:id="@+id/tv_source_news"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/poppins_medium"
             android:text="@string/sumber"
             android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/tv_sumber"
             app:layout_constraintStart_toStartOf="@+id/tv_sumber"
             app:layout_constraintTop_toBottomOf="@+id/tv_sumber" />

@@ -3,9 +3,11 @@ package com.riridev.ririapp.data.remote.retrofit
 import com.riridev.ririapp.data.remote.response.CreateCommentResponse
 import com.riridev.ririapp.data.remote.response.CreateDiscussionResponse
 import com.riridev.ririapp.data.remote.response.ErrorResponse
+import com.riridev.ririapp.data.remote.response.GetAcceptedReportsResponse
 import com.riridev.ririapp.data.remote.response.GetDiscussionDetailResponse
 import com.riridev.ririapp.data.remote.response.GetDiscussionResponseItem
-import com.riridev.ririapp.data.remote.response.GetReportResponse
+import com.riridev.ririapp.data.remote.response.GetRejectedReportsResponse
+import com.riridev.ririapp.data.remote.response.GetVerifAndProcessReportsResponse
 import com.riridev.ririapp.data.remote.response.LoginResponse
 import com.riridev.ririapp.data.remote.response.RegisterResponse
 import com.riridev.ririapp.data.remote.response.ReportResponse
@@ -54,10 +56,24 @@ interface ApiService {
 
     @FormUrlEncoded
     @PUT("{userId}/edit-profile/edit")
-    suspend fun updateProflieInfo(
+    suspend fun updateUsernameProfile(
         @Path("userId") userId: String,
-        @Field("email") email: String?,
-        @Field("username") username: String?,
+        @Field("username") username: String,
+    ): ErrorResponse
+
+    @FormUrlEncoded
+    @PUT("{userId}/edit-profile/edit")
+    suspend fun updateEmailProfile(
+        @Path("userId") userId: String,
+        @Field("email") email: String,
+    ): ErrorResponse
+
+    @FormUrlEncoded
+    @PUT("{userId}/edit-profile/edit")
+    suspend fun updateProfileInfo(
+        @Path("userId") userId: String,
+        @Field("email") email: String,
+        @Field("username") username: String
     ): ErrorResponse
 
 
@@ -80,10 +96,25 @@ interface ApiService {
         @Part file: MultipartBody.Part,
     ): ReportResponse
 
-    @GET("{userId}/report/report-history/diproses")
-    suspend fun getReport(
+    @GET("{userId}/report/report-history/terverifikasi")
+    suspend fun getVerifReport(
         @Path("userId") userId: String,
-    ): GetReportResponse
+    ): GetVerifAndProcessReportsResponse
+
+    @GET("{userId}/report/report-history/diproses")
+    suspend fun getProcessedReport(
+        @Path("userId") userId: String,
+    ): GetVerifAndProcessReportsResponse
+
+    @GET("{userId}/report/report-history/ditolak")
+    suspend fun getRejectedReport(
+        @Path("userId") userId: String,
+    ): GetRejectedReportsResponse
+
+    @GET("{userId}/report/report-history/selesai")
+    suspend fun getDoneReport(
+        @Path("userId") userId: String,
+    ): GetAcceptedReportsResponse
 
     //discussion
     @Multipart
@@ -95,10 +126,10 @@ interface ApiService {
         @Part file: MultipartBody.Part,
     ): CreateDiscussionResponse
 
-    @GET("/discussions")
+    @GET("discussions")
     suspend fun getAllDiscussion(): List<GetDiscussionResponseItem>
 
-    @GET("/discussions/{postId}")
+    @GET("discussions/{postId}")
     suspend fun getDiscussionDetail(
         @Path("postId") postId: String
     ): GetDiscussionDetailResponse
@@ -117,4 +148,5 @@ interface ApiService {
         @Path("postId") postId: String,
         @Field("username") username: String,
     ): ErrorResponse
+
 }

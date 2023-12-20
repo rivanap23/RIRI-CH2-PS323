@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Riri</string>
-    <string name="welcome_text">Selamat datang di Riri!</string>
+    <string name="app_name">RIRI</string>
+    <string name="welcome_text">Selamat datang di RIRI!</string>
     <string name="tagline">Berikan Kemudahan di Setiap Permasalahan</string>
     <string name="email">Email</string>
     <string name="username">Username</string>
@@ -32,7 +32,7 @@
     <string name="daftar_disini">Daftar di sini</string>
     <string name="masuk_di_sini">Masuk di sini</string>
     <string name="ask_account_regis">Sudah punya akun?</string>
-    <string name="title_notifications">Notifications</string>
+    <string name="title_notifications">Notifikasi</string>
     <string name="nama_lengkap">Nama Lengkap</string>
     <string name="email_gmail_com">email@gmail.com</string>
     <string name="edit_profile">Edit Profile</string>
@@ -83,8 +83,6 @@
     <string name="image_news">Image News</string>
     <string name="cari">Cari</string>
     <string name="sumber">Sumber</string>
-    <string name="nama_agensi">Nama Agensi</string>
-    <string name="label">Label</string>
     <string name="carousel_background">carousel background</string>
     <string name="carousel_title">carousel title</string>
     <string name="carousel_description">carousel description</string>
@@ -92,4 +90,19 @@
     <string name="send_button">send button</string>
     <string name="urutkan">Urutkan</string>
     <string name="author_news">%1$s %2$s</string>
+    <string name="fitur_belum_tersedia">Fitur Belum Tersedia</string>
+    <string name="kategori_penanganan">Kategori Penanganan</string>
+    <string name="tidak">Tidak</string>
+    <string name="ya">Ya</string>
+    <string name="laporan_ditolak">Laporan Ditolak</string>
+    <string name="laporan_diterima">Laporan Diterima</string>
+    <string name="laporan_akan_segera_diproses">Laporan akan segera diproses.</string>
+    <string name="laporan_anda_terdeteksi_spam">Laporan anda terdeteksi spam.</string>
+    <string name="ulangi">Ulangi Pelaporan</string>
+    <string name="lanjutkan">Lihat Riwayat</string>
+    <string name="lokasi_saya">Lokasi Saya</string>
+    <string name="pilih_lokasi">Pilih Lokasi</string>
+    <string name="likes">%1$s likes</string>
+    <string name="report_result">Report Result</string>
+    <string name="anda_yakin_ingin_keluar">Anda yakin ingin keluar?</string>
 </resources>

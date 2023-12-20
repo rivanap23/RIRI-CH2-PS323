@@ -31,7 +31,7 @@
         android:id="@+id/rv_discuss"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:layout_marginHorizontal="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,10 +47,10 @@
         android:layout_marginBottom="20dp"
         android:contentDescription="@string/create_discussion"
         android:src="@drawable/outline_create_24"
-        app:backgroundTint="@color/primary_variant"
+        app:backgroundTint="@color/container"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:rippleColor="@color/container"
+        app:rippleColor="@color/primary_variant"
         app:tint="@color/primary" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
