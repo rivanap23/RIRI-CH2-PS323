@@ -105,17 +105,7 @@ app.post('/discussions/:postId/comment', async (req, res) => {
 // Memberi like pada postingan
 app.post('/discussions/:postId/like', async (req, res) => {
   try {
-    await userPostController.addLike(req, res);
-  } catch (error) {
-    console.error(error.message);
-    res.status(500).json({error: 'Internal Server Error'});
-  }
-});
-
-// Menghapus like pada postingan
-app.delete('/discussions/:postId/unlike', async (req, res) => {
-  try {
-    await userPostController.removeLike(req, res);
+    await userPostController.toggleLike(req, res);
   } catch (error) {
     console.error(error.message);
     res.status(500).json({error: 'Internal Server Error'});

@@ -5,7 +5,7 @@ const {format} = require('util');
 const admin = require('firebase-admin');
 
 const storage = require('../storage-config/storage');
-const bucket = storage.bucket('Bucket Name');
+const bucket = storage.bucket('riri-user-profile-image');
 const db = require('../db-cofig/db');
 
 // Menambahkan atau mengubah Profil Image
@@ -160,7 +160,7 @@ async function updateUserInfo(req, res) {
 
     await userDocRef.update(updateData);
 
-    // Update username or email di semua db.collection
+    // Update username atau email di semua db.collection
     const collections = await db.listCollections();
     const updatePromises = [];
 
@@ -179,6 +179,27 @@ async function updateUserInfo(req, res) {
           if (newUsername !== undefined) {
             docUpdateData.username = newUsername;
           }
+
+          if (collectionRef.id === 'userDiscussion' && data.likes) {
+            const updatedLikes = data.likes.map((like) => {
+              if (like === userDoc.data().username) {
+                return newUsername;
+              }
+              return like;
+            });
+            docUpdateData.likes = updatedLikes;
+          }
+
+          if (collectionRef.id === 'userDiscussion' && data.comments) {
+            const updatedComments = data.comments.map((comment) => {
+              if (comment.username === userDoc.data().username) {
+                return {...comment, username: newUsername};
+              }
+              return comment;
+            });
+            docUpdateData.comments = updatedComments;
+          }
+
           updatePromises.push(doc.ref.update(docUpdateData));
         }
       }

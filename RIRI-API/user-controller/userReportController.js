@@ -5,7 +5,7 @@ const processFileMiddleware = require('../middleware/upload');
 const admin = require('firebase-admin');
 
 const storage = require('../storage-config/storage');
-const bucket = storage.bucket('Bucket Name');
+const bucket = storage.bucket('riri-user-report');
 const db = require('../db-cofig/db');
 
 // User membuat laporan

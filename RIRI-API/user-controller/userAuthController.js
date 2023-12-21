@@ -31,6 +31,11 @@ async function registerUser(req, res) {
       return res.status(400).json({message: `Password harus memiliki setidaknya ${MIN_PASSWORD_LENGTH} karakter`});
     }
 
+    // Validasi username hanya boleh mengandung huruf, angka, dan underscore (_)
+    if (!/^[a-zA-Z0-9_]+$/.test(username)) {
+      return res.status(400).json({message: 'Username hanya boleh menggunakan huruf, angka, dan _ (underscore)'});
+    }
+
     const usernameExists = await db.collection('users').where('username', '==', username).get();
     if (!usernameExists.empty) {
       return res.status(409).json({message: 'Username sudah digunakan'});
@@ -59,7 +64,7 @@ async function registerUser(req, res) {
 
     res.status(201).json({
       userId,
-      message: 'sukses mendaftar',
+      message: 'Sukses mendaftar',
     });
   } catch (error) {
     console.error(error);

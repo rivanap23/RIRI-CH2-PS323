@@ -1,4 +1,4 @@
 const {Storage} = require('@google-cloud/storage');
-const storage = new Storage({keyFilename: 'Service Account for Storage'});
+const storage = new Storage({keyFilename: 'storageKey.json'});
 
 module.exports = storage;

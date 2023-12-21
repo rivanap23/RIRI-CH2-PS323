@@ -61,6 +61,7 @@ async function createPost(req, res) {
           imageUrl,
           timestamp: admin.firestore.FieldValue.serverTimestamp(),
           username,
+          userId,
           likes: [],
           comments: [],
         });
@@ -141,36 +142,8 @@ async function addComment(req, res) {
 };
 
 
-// Menambahkan like pada postingan
-async function addLike(req, res) {
-  try {
-    const postId = req.params.postId;
-    const {username} = req.body;
-
-    if (!postId || !username) {
-      return res.status(400).send({message: 'Postingan tidak ditemukan'});
-    }
-
-    const userQuerySnapshot = await db.collection('users').where('username', '==', username).get();
-
-    if (userQuerySnapshot.empty) {
-      return res.status(404).send({message: 'User tidak ditemukan'});
-    }
-
-    const postDocRef = db.collection('userDiscussion').doc(postId);
-
-    await postDocRef.update({
-      likes: admin.firestore.FieldValue.arrayUnion(username),
-    });
-
-    res.status(200).json({message: 'Like'});
-  } catch (err) {
-    res.status(500).send({message: `Gagal menambahkan like ${err}`});
-  }
-};
-
-// Menghilangkan like dari postingan
-async function removeLike(req, res) {
+// Menambahkan like/unlike pada postingan
+async function toggleLike(req, res) {
   try {
     const postId = req.params.postId;
     const {username} = req.body;
@@ -186,14 +159,27 @@ async function removeLike(req, res) {
     }
 
     const postDocRef = db.collection('userDiscussion').doc(postId);
+    const postDoc = await postDocRef.get();
 
-    await postDocRef.update({
-      likes: admin.firestore.FieldValue.arrayRemove(username),
-    });
+    if (!postDoc.exists) {
+      return res.status(404).send({message: 'Postingan tidak ditemukan'});
+    }
 
-    res.status(200).json({message: 'Unlike'});
+    const currentLikes = postDoc.data().likes || [];
+
+    if (currentLikes.includes(username)) {
+      await postDocRef.update({
+        likes: admin.firestore.FieldValue.arrayRemove(username),
+      });
+      res.status(200).json({message: 'Batal menyukai', username: username});
+    } else {
+      await postDocRef.update({
+        likes: admin.firestore.FieldValue.arrayUnion(username),
+      });
+      res.status(200).json({message: 'Menyukai', username: username});
+    }
   } catch (err) {
-    res.status(500).send({message: `Could not remove like. ${err}`});
+    res.status(500).send({message: `Could not toggle like. ${err}`});
   }
 };
 
@@ -288,8 +274,7 @@ async function getAllPosts(req, res) {
 module.exports = {
   createPost,
   addComment,
-  addLike,
-  removeLike,
+  toggleLike,
   getPostDetail,
   getAllPosts,
 };
