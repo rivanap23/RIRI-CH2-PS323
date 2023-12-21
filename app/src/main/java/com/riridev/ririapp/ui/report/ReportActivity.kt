@@ -59,7 +59,7 @@ class ReportActivity : AppCompatActivity() {
 
             override fun afterTextChanged(s: Editable?) {
                 val text = s.toString().trim().split("\\s+".toRegex())
-                if (text.size == 3) {
+                if (text.size >= 3) {
                     binding.activityReport.tilTitleReport.isErrorEnabled = false
                 } else {
                     binding.activityReport.tilTitleReport.error = "Judul laporan minimal 3 kata"
