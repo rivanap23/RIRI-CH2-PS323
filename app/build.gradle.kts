@@ -4,7 +4,6 @@ plugins {
     id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
     id("kotlin-parcelize")
     id("com.google.gms.google-services")
-    id("com.google.devtools.ksp")
 }
 
 android {
@@ -72,10 +71,5 @@ dependencies {
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("androidx.navigation:navigation-fragment-ktx:2.7.5")
     implementation("androidx.navigation:navigation-ui-ktx:2.7.5")
-
-    ksp("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.room:room-ktx:2.6.1")
-    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
-    implementation("androidx.room:room-paging:2.6.1")
 
 }
