@@ -34,12 +34,17 @@ These buckets are set to be stored in a single region location type, namely asia
 
 ## More Information about API
 
-https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-CC/RIRI-API (NodeJs API Code)
-https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-ML/api (Flask API Code)
-https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-CC/Dokumentasi%20API (Endpoint Documentation)
+### NodeJs API Code
+https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-CC/RIRI-API
+
+### Flask API Code
+https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-ML/api
+
+### Endpoint Documentation
+https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-CC/Dokumentasi%20API
 
 ## Also Check Admin API for Admin Controller on User Reports
-https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-CC/RIRI-ADMIN-API (Admin NodeJs API Code)
+https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-CC/RIRI-ADMIN-API
 
 
 # Thank You!
