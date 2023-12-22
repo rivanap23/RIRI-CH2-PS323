@@ -1,6 +1,4 @@
 # RIRI-CH2-PS323-CC
- 
-# RIRI Cloud Computing
 
 ## Main Architecture
 ![RIRI Main Architecture](https://github.com/rivanap23/RIRI-CH2-PS323/raw/RIRI-Development-CC/Architecture/RIRI-MAIN-ARCHITECTURE.png)
