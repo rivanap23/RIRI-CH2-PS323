@@ -44,5 +44,3 @@ https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-CC/Dokumentasi
 ## Also Check Admin API for Admin Controller on User Reports
 https://github.com/rivanap23/RIRI-CH2-PS323/tree/RIRI-Development-CC/RIRI-ADMIN-API
 
-
-# Thank You!
