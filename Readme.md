@@ -1,4 +1,5 @@
 # RIRI-CH2-PS323 Bangkit 2023 Batch 2 Capstone
+![RIRI Image](https://github.com/rivanap23/RIRI-CH2-PS323/blob/main/RIRI.png)
 
 ## About Us
 The RIRI (Report It, Resolve It) app is an innovative answer to the ongoing difficulties of community safety and public order. RIRI is positioned to be an user-centered mobile application that aspires to empower individuals to actively contribute to the security of their communities in an increasingly digitized society. It aims to address the issue of inefficient and out-of-date event reporting procedures, which have resulted in delayed responses and decreased community safety.
