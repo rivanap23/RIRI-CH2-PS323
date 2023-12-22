@@ -9,9 +9,9 @@ The RIRI (Report It, Resolve It) app is an innovative answer to the ongoing diff
 The RIRI app is designed to make incident reporting quick and easy, while also promoting community involvement and collaboration to increase citizen safety. The goal is to improve citizen participation, foster trust, and make communities safer by creating an atmosphere where individuals and authorities work together to address safety issues, ultimately improving the quality of life for everyone. The RIRI app actively promotes community involvement by encouraging citizens to participate in reporting incidents and collaborating with authorities to address safety concerns effectively.
 
 ## Meet Our Team
-| Name   | Bangkit ID   | University   | Role   |
+| Bangkit ID   | Name   | University   | Role   |
 | --------- | --------- | --------- | --------- |
-| Annisa Sahda Devina   | M014BSX1470   | Universitas Udayana   |  Machine Learning  |
+| M014BSX1470   | Annisa Sahda Devina   | Universitas Udayana   |  Machine Learning  |
 | M014BSY1535  | Made Wahyu Adwitya Pramana   | Universitas Udayana   | Machine Learning   |
 | M296BSX0982   | Fitri Indah Sari   | Universitas Pembangunan Nasional Veteran Jawa Timur   | Machine Learning   |
 | C011BSY3593   | Rivan Akbar Putra Nurdiansyah   | Universitas Padjadjaran   | Cloud Computing   |
